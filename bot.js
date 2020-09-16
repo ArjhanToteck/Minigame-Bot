@@ -41,6 +41,10 @@ client.on('message', message => {
         
 		}
 	
+		if (message.content === "pfp") {
+			message.channel.send(generateEmbed("PFP", "This the pfp", message.author.displayAvatarURL));
+		}
+	
     // blackjack
     //___________________________________________________________
 
@@ -572,12 +576,16 @@ client.on('message', message => {
 
 // function to generate embeds
 
-function generateEmbed(title, desc) {
+function generateEmbed(title, desc, imageSrc = undefined) {
     const newEmbed = new Discord.RichEmbed()
         .setColor('#b00000')
         .setTitle(title)
         .setDescription(desc)
         .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png');
+	
+		if(!!imageSrc){
+			newEmbed.setImage(imageSrc)
+		}
 
     var output = {
         embed: newEmbed
