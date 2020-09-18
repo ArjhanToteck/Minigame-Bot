@@ -42,6 +42,8 @@ client.on('message', message => {
 		// snakes and ladders
     //___________________________________________________________
 		if (message.content === '!sal'){
+			
+			roll()
 							
 			// gets canvas
 			var canvas = document.createElement("canvas");
