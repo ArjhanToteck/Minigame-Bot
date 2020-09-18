@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const Canvas = require('canvas');
 
 const client = new Discord.Client();
 
@@ -42,7 +41,322 @@ client.on('message', message => {
 	
 		// snakes and ladders
     //___________________________________________________________
-
+		if (message.content === '!sal'){
+			
+			roll()
+							
+			// gets canvas
+			const canvas = Canvas.createCanvas(700, 250);
+			const ctx = canvas.getContext('2d');
+				
+			// user object
+			var user = {
+				token: new Image(),
+				coordinates: [0, 9],
+				coordinateValues: [0, 0],
+				number: 1
+			}
+			
+			user.token.src = message.author.displayAvatarURL;
+				
+			// bot object
+			var bot = {
+				token: new Image(),
+				coordinates: [0, 9],
+				coordinateValues: [0, 0],
+				number: 1
+			}
+			
+			bot.token.src = client.user.avatarURL;
+			
+			// obstacles object
+				
+			var obstacles = {
+				// ladders
+				2: 44,
+				6: 13,
+				9: 31,
+				28: 84,
+				62: 100,
+				63: 78,
+				67: 93,
+				70: 73,
+				
+					// snakes
+				25: 4,
+				51: 29,
+				59: 20,
+				68: 15,
+				87: 56,
+				94: 72,
+				98: 64
+			}
+				
+				
+			var roll = async () => {
+				
+				if(user.number > 100){
+					user.number = 100;
+					user.coordinates = [0, 0];
+					user.coordinateValues = [1, 0];
+				}
+				
+				var message = "You start at square " + user.number + ".";
+				
+				// simulates dice
+				var rolledNum = Math.floor(Math.random() * (7 - 1) + 1)
+				
+				// updates message
+				
+				message += "\n You rolled a " + rolledNum;
+				
+				// moves forward according to roll
+				for(var i = 0; i < rolledNum; i++){
+					move();
+				}
+				
+				if(user.number > 100){
+					user.number = 100;
+					user.coordinates = [0, 0];
+					user.coordinateValues = [1, 0];
+				}
+				
+				message += " and landed on " + (user.number) + ".";
+				
+				// checks for snakes or ladders
+				
+				const constNumber = user.number;
+				
+				if(obstacles.hasOwnProperty(user.number)){
+					if(user.number < obstacles[user.number]){
+						while(user.number != obstacles[constNumber]){
+							move();
+						}
+						
+						message += "\n Since you landed on a ladder, you advance to " + user.number + ".";
+						
+					} else {
+						while(user.number != obstacles[constNumber]){
+							moveBack()
+						}
+						
+						message += "\n Since you landed on a snake, you are sent back to " + user.number + ".";
+						
+					}
+				}
+				
+				// bot rolls
+				
+				if(bot.number > 100){
+					bot.number = 100;
+					bot.coordinates = [0, 0];
+					bot.coordinateValues = [1, 0];
+				}
+				
+				message += "<hr> I start at square " + bot.number + "."
+				
+				var botRolledNum = Math.floor(Math.random() * (7 - 1) + 1)
+				
+				message += "\n I rolled a " + botRolledNum;
+				
+				// moves forward according to roll
+				for(var i = 0; i < botRolledNum; i++){
+					botMove();
+				}
+				
+				
+				if(bot.number > 100){
+					bot.number = 100;
+					bot.coordinates = [0, 0];
+					bot.coordinateValues = [1, 0];
+				}
+				
+				message += " and landed on " + (bot.number) + ".";
+				
+							// checks for snakes or ladders
+				
+				const botConstNumber = bot.number;
+				
+				if(obstacles.hasOwnProperty(bot.number)){
+					if(bot.number < obstacles[bot.number]){
+						while(bot.number != obstacles[botConstNumber]){
+							botMove();
+						}
+						
+						message += "\n Since I landed on a ladder, I advance to " + bot.number + ".";
+						
+					} else {
+						while(bot.number != obstacles[botConstNumber]){
+							botMoveBack()
+						}
+						
+						message += "\n Since I landed on a snake, I am sent back to " + bot.number + ".";
+						
+					}
+				}
+				
+				// tie
+				if(bot.number == 100 && user.number == 100){
+					message += "<hr> It's a tie! \n Thank you for playing.";
+					roll = async () => {};
+				} else{
+					
+					// bot wins
+					if(bot.number == 100){
+						message += "<hr> I win! \n Thank you for playing.";
+						roll = async () => {};
+					}
+					
+					// user wins
+					if (user.number == 100){
+						message += "<hr> You win! \n Thank you for playing.";
+						roll = async () => {};
+					}
+				}
+				
+				// bot functions
+				//________________________________________________
+				
+				function botMoveBack(){
+				// goes forwards or backwards depending on row
+				if(bot.coordinates[1] % 2 == 1){
+					bot.coordinates[0]--;
+				} else {
+					bot.coordinates[0]++;
+				}
+				
+				// updates coordinate values
+				bot.coordinateValues[0]--;
+				
+				if(bot.coordinateValues[0] < 0){
+					
+					// goes to position 0 or 9 depending on roll
+					if(bot.coordinates[1] % 2 == 1){
+						bot.coordinates[0] = 0;
+					} else {
+						bot.coordinates[0] = 9;
+					}
+			
+					// updates x coordintes and coordinate values
+					bot.coordinateValues[0] = 9;
+					bot.coordinates[1] ++;
+				}
+				
+				// does this at end to not break while loops
+				bot.number--;
+			}
+				
+				function botMove(){
+					// goes forwards or backwards depending on row
+				if(bot.coordinates[1] % 2 == 1){
+					bot.coordinates[0]++;
+				} else {
+					bot.coordinates[0]--;
+				}
+				
+				// updates coordinate values
+				bot.coordinateValues[0]++;
+				
+				if(bot.coordinateValues[0] > 9){
+					
+					// goes to position 0 or 9 depending on roll
+					if(bot.coordinates[1] % 2 == 1){
+						bot.coordinates[0] = 9;
+					} else {
+						bot.coordinates[0] = 0;
+					}
+			
+					// updates x coordintes and coordinate values
+					bot.coordinateValues[0] = 0;
+					bot.coordinates[1] --;
+				}
+				
+				// does this at end to not break while loops
+				bot.number++;
+				}
+				
+				// sends message
+				message.channel.send(generateEmbed("Snakes and Ladders", message, canvas.toDataURL));
+				
+			}
+				
+			function moveBack(){
+				// goes forwards or backwards depending on row
+				if(user.coordinates[1] % 2 == 1){
+					user.coordinates[0]--;
+				} else {
+					user.coordinates[0]++;
+				}
+				
+				// updates coordinate values
+				user.coordinateValues[0]--;
+				
+				if(user.coordinateValues[0] < 0){
+					
+					// goes to position 0 or 9 depending on roll
+					if(user.coordinates[1] % 2 == 1){
+						user.coordinates[0] = 0;
+					} else {
+						user.coordinates[0] = 9;
+					}
+			
+					// updates x coordintes and coordinate values
+					user.coordinateValues[0] = 9;
+					user.coordinates[1] ++;
+				}
+				
+				// does this at end to not break while loops
+				user.number--;
+			}
+			
+			function move(){
+				
+				// goes forwards or backwards depending on row
+				if(user.coordinates[1] % 2 == 1){
+					user.coordinates[0]++;
+				} else {
+					user.coordinates[0]--;
+				}
+				
+				// updates coordinate values
+				user.coordinateValues[0]++;
+				
+				if(user.coordinateValues[0] > 9){
+					
+					// goes to position 0 or 9 depending on roll
+					if(user.coordinates[1] % 2 == 1){
+						user.coordinates[0] = 9;
+					} else {
+						user.coordinates[0] = 0;
+					}
+			
+					// updates x coordintes and coordinate values
+					user.coordinateValues[0] = 0;
+					user.coordinates[1] --;
+				}
+				
+				// does this at end to not break while loops
+				user.number++;
+			}
+			
+			//draw function without processing js
+			setInterval(function(){
+			// clears canvas
+			ctx.clearRect(0, 0, 1000, 1000);	
+				
+			// draws background
+			var background = new Image();
+			background.src = "https://arjhantoteck.neocities.org/images/snakes%20and%20ladders.png";
+			ctx.drawImage(background, 0, 0, 1000, 1000);
+			
+			// draws user
+			ctx.drawImage(user.token, (user.coordinates[0] * 100) + 20, (user.coordinates[1] * 100) + 20, 60, 60);
+				
+			// draws bot
+			ctx.drawImage(bot.token, (bot.coordinates[0] * 100) + 20, (bot.coordinates[1] * 100) + 20, 60, 60);
+				
+			}, 1);
+		}
 	
     // blackjack
     //___________________________________________________________
