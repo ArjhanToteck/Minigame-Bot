@@ -42,8 +42,6 @@ client.on('message', message => {
 		// snakes and ladders
     //___________________________________________________________
 		if (message.content === '!sal'){
-			
-			roll()
 							
 			// gets canvas
 			const canvas = Canvas.createCanvas(700, 250);
@@ -356,6 +354,9 @@ client.on('message', message => {
 			ctx.drawImage(bot.token, (bot.coordinates[0] * 100) + 20, (bot.coordinates[1] * 100) + 20, 60, 60);
 				
 			}, 1);
+			
+			roll()
+			
 		}
 	
     // blackjack
