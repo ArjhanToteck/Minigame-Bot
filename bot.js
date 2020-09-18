@@ -47,8 +47,8 @@ client.on('message', message => {
 			roll()
 							
 			// gets canvas
-			var canvas = Canvas.createCanvas(1000, 1000)
-			var ctx = canvas.getContext("2d");
+			const canvas = Canvas.createCanvas(700, 250);
+			const ctx = canvas.getContext('2d');
 				
 			// user object
 			var user = {
