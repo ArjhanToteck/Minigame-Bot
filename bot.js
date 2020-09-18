@@ -42,7 +42,7 @@ client.on('message', message => {
 		}
 	
 		if (message.content === "pfp") {
-			message.channel.send(generateEmbed("PFP", "This the pfp", client.displayAvatarURL));
+			message.channel.send(generateEmbed("PFP", "This the pfp", client.user.avatar_url));
 		}
 	
     // blackjack
