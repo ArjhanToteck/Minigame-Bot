@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const Canvas = require('canvas');
 
 const client = new Discord.Client();
 
@@ -46,9 +47,7 @@ client.on('message', message => {
 			roll()
 							
 			// gets canvas
-			var canvas = document.createElement("canvas");
-			canvas.width = "1000";
-			canvas.height = "1000";
+			var canvas = Canvas.createCanvas(1000, 1000)
 			var ctx = canvas.getContext("2d");
 				
 			// user object
