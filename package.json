@@ -17,6 +17,8 @@
   "dependencies": {
 
     "discord.js": "11.1.0",
+    
+    "canvas": "2.6.0",
 
     "request": "2.81.0"
 
