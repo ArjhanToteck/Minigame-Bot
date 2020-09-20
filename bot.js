@@ -377,7 +377,7 @@ client.on('message', message => {
         if (message.content === "rock" || message.content === "paper" || message.content === "scissors" || message.content === "r" || message.content === "p" || message.content === "s") {
             var playerAttack = message.content[0]
             var botAttack = ["r", "p", "s"]
-						botAttack = botAttack[Math.floor(Math.random() * ((botAttack.length - 1) - 0) + 0)];
+						botAttack = botAttack[Math.floor(Math.random() * Math.floor(3))];
 						
 						var fullAttacks = ["rock", "paper", "scissors"]
 						var abbAttacks = ["r", "p", "s"]
