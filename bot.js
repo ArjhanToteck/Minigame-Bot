@@ -10,8 +10,7 @@ client.on('ready', () => {
     client.user.setPresence({
         game: {
             name: "minigames | !help",
-            type: "STREAMING",
-            url: "https://www.twitch.tv/"
+            type: "PLAYING"
         }
     });
 
