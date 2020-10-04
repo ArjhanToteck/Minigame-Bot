@@ -9,7 +9,7 @@ client.on('ready', () => {
     client.user.setStatus('available')
     client.user.setPresence({
         game: {
-            name: "minigames | !help",
+            name: "minigames|!help",
             type: "PLAYING"
         }
     });
