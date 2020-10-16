@@ -1,6 +1,8 @@
 {
 
   "name": "Minigame Bot",
+  
+  "author": "ArjhanToteck",
 
   "description": "A bot that plays minigames written in JavaScript by ArjhanToteck.",
 
@@ -12,6 +14,12 @@
 
     "start": "node bot.js"
 
+  },
+  "repository": {
+    
+    "type": "git",
+    
+    "url": "git+https://github.com/ArjhanToteck/minigame-bot.git"
   },
 
   "dependencies": {
