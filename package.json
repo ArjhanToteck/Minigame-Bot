@@ -1,6 +1,6 @@
 {
 
-  "name": "Minigame Bot",
+  "name": "MinigameBot",
   
   "author": "ArjhanToteck",
 
@@ -9,6 +9,14 @@
   "version": "0.0.0",
 
   "main": "bot.js",
+  
+  "repository": {
+    
+    "type": "git",
+    
+    "url": "git+https://github.com/ArjhanToteck/minigame-bot.git"
+    
+  },
   
   "engines": {
     
@@ -21,8 +29,6 @@
   "scripts": {
 
     "start": "node bot.js",
-    
-    "worker": "npm start"
 
   },
 
