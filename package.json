@@ -15,11 +15,20 @@
     "start": "node bot.js"
 
   },
+  
   "repository": {
     
     "type": "git",
     
     "url": "git+https://github.com/ArjhanToteck/minigame-bot.git"
+  },
+  
+  "engines": {
+    
+    "node": "12.14.1",
+    
+    "npm": "6.13.4"
+    
   },
 
   "dependencies": {
