@@ -28,18 +28,17 @@ client.on('message', message => {
 
     if (message.content === 'test') {
         message.delete(1);
-        message.channel.send(`
+        message.channel.send(`:blue_square::one::two::three::four::five::six::seven::eight::nine::keycap_ten:
 :regional_indicator_a::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
-:regional_indicator_b::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::fast_forward::fast_forward::blue_square::arrow_double_up:
-:regional_indicator_c::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up:
-:regional_indicator_d::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::arrow_double_up:
-:regional_indicator_e::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::arrow_double_up:
-:regional_indicator_f::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::arrow_double_up:
-:regional_indicator_g::blue_square::fast_forward::fast_forward::fast_forward::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
-:regional_indicator_h::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
-:regional_indicator_i::fast_forward::fast_forward::fast_forward::fast_forward::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
-:regional_indicator_j::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
-	`);
+:regional_indicator_b::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::blue_square::blue_square:
+:regional_indicator_c::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::blue_square::arrow_double_up:
+:regional_indicator_d::blue_square::fast_forward::fast_forward::blue_square::blue_square::blue_square::blue_square::arrow_double_up::blue_square::arrow_double_up:
+:regional_indicator_e::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::blue_square::arrow_double_up:
+:regional_indicator_f::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::arrow_double_up::blue_square::arrow_double_up:
+:regional_indicator_g::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:
+:regional_indicator_h::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::fast_forward::fast_forward::fast_forward:
+:regional_indicator_i::blue_square::blue_square::blue_square::fast_forward::fast_forward::fast_forward::blue_square::blue_square::blue_square::blue_square:
+:regional_indicator_j::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square::blue_square:`);
     }
 	
 		// !help
