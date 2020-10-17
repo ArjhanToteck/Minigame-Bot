@@ -28,17 +28,17 @@ client.on('message', message => {
 
     if (message.content === 'test') {
         message.delete(1);
-        message.channel.send(`:black_large_square::one::two::three::four::five::six::seven::eight::nine::keycap_ten:
-:regional_indicator_a::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::fast_forward::fast_forward::fast_forward:
-:regional_indicator_b::black_large_square::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::rewind::rewind::rewind::black_large_square:
-:regional_indicator_c::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_d::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_e::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_f::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_g::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_h::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_i::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:
-:regional_indicator_j::black_large_square::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::black_large_square::black_large_square::black_large_square:`);
+        message.channel.send(`:brown_square::one::two::three::four::five::six::seven::eight::nine::keycap_ten:
+:regional_indicator_a::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_b::brown_square::brown_square::fast_forward::fast_forward::fast_forward::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_c::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_d::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_e::fast_forward::fast_forward::fast_forward::fast_forward::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_f::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::fast_forward::fast_forward::brown_square:
+:regional_indicator_g::brown_square::brown_square::brown_square::brown_square::fast_forward::fast_forward::fast_forward::brown_square::brown_square::brown_square:
+:regional_indicator_h::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_i::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:
+:regional_indicator_j::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square::brown_square:`);
     }
 	
 		// !help
