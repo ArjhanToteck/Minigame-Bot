@@ -28,17 +28,17 @@ client.on('message', message => {
 
     if (message.content === 'test') {
         message.delete(1);
-        message.channel.send(`      :one::two::three::four::five::six::seven::eight::nine::keycap_ten:
-:regional_indicator_a:                                                            
-:regional_indicator_b:                                                            
-:regional_indicator_c:                  :fast_forward::fast_forward::fast_forward:                        
+        message.channel.send(`:blue_square::one::two::three::four::five::six::seven::eight::nine::keycap_ten:
+:regional_indicator_a:                                                      :arrow_double_up:
+:regional_indicator_b:                                                      :arrow_double_up:
+:regional_indicator_c:                                                            
 :regional_indicator_d:                                                            
-:regional_indicator_e:            :fast_forward::fast_forward:            :fast_forward::fast_forward::fast_forward::fast_forward:
-:regional_indicator_f:                  :fast_forward::fast_forward::fast_forward:                        
+:regional_indicator_e::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward:            
+:regional_indicator_f:                                                            
 :regional_indicator_g:                                                            
-:regional_indicator_h:            :fast_forward::fast_forward::fast_forward::fast_forward::fast_forward:                  
+:regional_indicator_h:                  :fast_forward::fast_forward::fast_forward::fast_forward:                  
 :regional_indicator_i:                                                            
-:regional_indicator_j:                                                            `);
+:regional_indicator_j:                  :fast_forward::fast_forward::fast_forward:                        `);
     }
 	
 		// !help
