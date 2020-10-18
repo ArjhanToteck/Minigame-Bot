@@ -47,7 +47,7 @@ client.on('message', message => {
 					inGame: false
         };
 
-        message.channel.send(generateEmbed("Battleship", 'Starting a game of battleship with ' + sender + '... \n \n Use `new board` to generate your board and proceed.')).then((msg) => {
+        message.channel.send(generateEmbed("Battleship", 'Opening a game of battleship with ' + sender + '... \n \n Use `new board` to generate your board and proceed.')).then((msg) => {
             bsGames[message.author.id].editable = msg;
         })
 
@@ -59,8 +59,7 @@ client.on('message', message => {
     }
 	
 	
-		// if game started
-	
+		// if game opened
 		if (bsGames.hasOwnProperty(message.author.id)) {
 			// !bs stop
       if (message.content === "!bs stop") {
@@ -71,35 +70,33 @@ client.on('message', message => {
       }
 
 			// new board
-			if (message.content === "new board") {
+			if (message.content === "new board" && !bsGames[message.author.id].inGame) {
 				message.delete(1);
+				var color = ":blue_square:";
 
-				if(!bsGames[message.author.id].inGame){
-					var color = ":blue_square:";
+				function newBoard(){
+					return [
+						[":blue_square:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":keycap_ten:", "\n"],
+						[":regional_indicator_a:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_b:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_c:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_d:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_e:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_f:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_g:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_h:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_i:", color, color, color, color, color, color, color, color, color, color, "\n"],
+						[":regional_indicator_j:", color, color, color, color, color, color, color, color, color, color]
+					];
+				}
 
-					function newBoard(){
-						return [
-							[":blue_square:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":keycap_ten:", "\n"],
-							[":regional_indicator_a:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_b:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_c:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_d:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_e:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_f:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_g:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_h:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_i:", color, color, color, color, color, color, color, color, color, color, "\n"],
-							[":regional_indicator_j:", color, color, color, color, color, color, color, color, color, color]
-						];
-					}
+				bsGames[message.author.id].playerBoard = newBoard();
+				bsGames[message.author.id].playerShips = [];
 
-					bsGames[message.author.id].playerBoard = newBoard();
-					bsGames[message.author.id].playerShips = [];
+				bsGames[message.author.id].botBoard = newBoard();
+				bsGames[message.author.id].botShips = [];
 
-					bsGames[message.author.id].botBoard = newBoard();
-					bsGames[message.author.id].botShips = [];
-
-					function shufflePlayerBoard(){
+				function shufflePlayerBoard(){
 						bsGames[message.author.id].playerBoard = newBoard();
 						bsGames[message.author.id].playerShips = [];
 
@@ -211,7 +208,7 @@ client.on('message', message => {
 					
 						}
 					}
-					function shuffleBotBoard(){
+				function shuffleBotBoard(){
 						bsGames[message.author.id].botBoard = newBoard();
 						bsGames[message.author.id].botShips = [];
 					
@@ -324,12 +321,16 @@ client.on('message', message => {
 						}
 					}
 
-					shufflePlayerBoard();
-					shuffleBotBoard();
+				shufflePlayerBoard();
+				shuffleBotBoard();
 
-					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n " + stringifyArray(bsGames[message.author.id].playerBoard) + "\n Use `new board` to generate another board, or use `start` to start the game."));
-			 }
+				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `new board` to generate another board, or use `start` to start the game."));
       }
+
+			if (message.content === "start"&& !bsGames[message.author.id].inGame) {
+				bsGames[message.author.id].inGame = true;
+				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
+			}
 		}
 
     // blackjack
