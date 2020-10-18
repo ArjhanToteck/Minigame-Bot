@@ -413,7 +413,7 @@ client.on('message', message => {
 					}
 					
 					if(output != "You can't fire there because you already did before!"){
-						bsGames[message.author.id].turn = "bot";
+						//bsGames[message.author.id].turn = "bot";
 					} else {
 						output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
 					}
