@@ -3,12 +3,16 @@
   "name": "MinigameBot",
   
   "author": "ArjhanToteck",
+  
+  "license": "MIT",
 
   "description": "A bot that plays minigames written in JavaScript by ArjhanToteck.",
 
-  "version": "0.0.0",
+  "version": "1.0.0",
 
   "main": "bot.js",
+  
+  "homepage": "https://arjhantoteck.neocities.org/minigame%20bot.html",
   
   "repository": {
     
