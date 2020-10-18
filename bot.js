@@ -19,6 +19,7 @@ client.on('ready', () => {
 
 });
 
+var bsGames = {}; // games for battleship
 var bjGames = {}; // games for blackjack
 var rpsGames = {}; // games for rock, paper, scissors
 var warGames = {}; // games for war
@@ -28,27 +29,34 @@ client.on('message', message => {
 
     if (message.content === 'test') {
         message.delete(1);
-        message.channel.send(`:blue_square::one::two::three::four::five::six::seven::eight::nine::keycap_ten:
-:regional_indicator_a:                                                      :arrow_double_up:
-:regional_indicator_b:                                                      :arrow_double_up:
-:regional_indicator_c:                                                            
-:regional_indicator_d:                                                            
-:regional_indicator_e::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward::fast_forward:            
-:regional_indicator_f:                                                            
-:regional_indicator_g:                                                            
-:regional_indicator_h:                  :fast_forward::fast_forward::fast_forward::fast_forward:                  
-:regional_indicator_i:                                                            
-:regional_indicator_j:                  :fast_forward::fast_forward::fast_forward:                        `);
+        message.channel.send("Working!");
     }
-	
+
 		// !help
 		//___________________________________________________________
 		if (message.content == "!help") {
 			message.channel.send(generateEmbed("Help", "This will have all of the commands and stuff."));
-        
 		}
-	
-	
+
+		// battleship
+    //___________________________________________________________
+
+		if (message.content === '!bs' && !bsGames.hasOwnProperty(message.author.id)) {
+        bsGames[message.author.id] = {
+            started: true
+        };
+
+        message.channel.send(generateEmbed("Battleship", 'Starting a game of battleship with ' + sender + '... \n \n Use `new board` to generate your board and proceed.')).then((msg) => {
+            bjGames[message.author.id].editable = msg;
+        })
+
+        message.delete(1);
+    } else {
+        if (message.content === '!bs' && bsGames.hasOwnProperty(message.author.id)) {
+            message.channel.send("You're already in a game of battleship! Use `!bs stop` to stop playing.");
+        }
+    }
+
     // blackjack
     //___________________________________________________________
 
@@ -59,7 +67,7 @@ client.on('message', message => {
         bjGames[message.author.id] = {
             started: true
         };
-			
+
 				// deck
 				bjGames[message.author.id].deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
