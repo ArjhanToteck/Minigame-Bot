@@ -75,7 +75,7 @@ client.on('message', message => {
 				message.delete(1);
 
 				if(!bsGames[message.author.id].inGame){
-					var color = "‎      ‎";
+					var color = "‎ ‎ ‎ ‎ ‎ ‎ ‎";
 
 					function newBoard(){
 						return [
