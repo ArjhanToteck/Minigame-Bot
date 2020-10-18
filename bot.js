@@ -111,7 +111,8 @@ client.on('message', message => {
 								bsGames[message.author.id].playerShips[i] = {
 									length: ships[i],
 									coords: [],
-									hits: []
+									hits: [],
+									color: color
 								};
 						
 								// gets hit array
@@ -384,7 +385,7 @@ client.on('message', message => {
 								}
 							}
 						
-							if(board[simpleCoords[0]][simpleCoords[1]] == color){
+							if(board[simpleCoords[0]][simpleCoords[1]] == bsGames[message.author.id].color){
 								// miss
 								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
 								output += " and miss."
@@ -392,8 +393,8 @@ client.on('message', message => {
 								// hit there already
 								output = "You can't fire there because you already did before!";
 							} else {
-								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
 								// hit
+								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
 								if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
