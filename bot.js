@@ -327,9 +327,100 @@ client.on('message', message => {
 				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `new board` to generate another board, or use `start` to start the game."));
       }
 
-			if (message.content === "start"&& !bsGames[message.author.id].inGame) {
+			// start
+			if (message.content === "start" && !bsGames[message.author.id].inGame) {
 				bsGames[message.author.id].inGame = true;
+				bsGames[message.author.id].turn = "player";
 				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
+			}
+
+			// if game started
+			if(bsGames[message.author.id].inGame){
+
+				// (number)(letter)
+				if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
+					var coordinates = ["", ""];
+					var numbers = "1234567890";
+
+					for(var i = 0; i < message.content.length; i++){
+						if(numbers.includes(message.content[i])){
+							coordinates[0] += message.content[i];
+						} else {
+							coordinates[1] += message.content[i].toLowerCase();
+						}
+					}
+
+					coordinates[0] = parseInt(coordinates[0], 10);
+
+					var output = `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
+					attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
+
+					function attackCoordinates(board, coordinates){
+						var simpleCoords = coordinates;
+						var letters = "abcdefghij";
+						var numbers = "123456789";
+					
+						if((simpleCoords + "").length == 4){
+							// contains 10
+							if(numbers.includes((simpleCoords[0] + "")[0])){
+					
+								// starts with number
+								simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+							} else {
+					
+								// starts with letter
+								simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+							}
+						} else {
+							// doesn't contain 10
+							if(numbers.includes(simpleCoords[0])){
+					
+								// starts with number
+								simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+							} else {
+					
+								// starts with letter
+								simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+							}
+						}
+					
+						if(board[simpleCoords[0]][simpleCoords[1]] == color){
+							// miss
+							board[simpleCoords[0]][simpleCoords[1]] = ":x:";
+							output += " and miss."
+						} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
+							// hit there already
+							output = "You can't fire there because you already did before!";
+						} else {
+							board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
+							// hit
+							if(board == bsGames[message.author.id].playerBoard){
+								for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
+									if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
+										bsGames[message.author.id].playerShips[i].hits[(bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)] = true;
+									}
+								}
+							} else {
+								for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
+									if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
+										bsGames[message.author.id].botShips[i].hits[(bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)] = true;
+									}
+								}
+							}
+					
+							output = " and hit!";
+						}
+					}
+					
+					if(output != "You can't fire there because you already did before!"){
+						bsGames[message.author.id].turn = "bot";
+					} else {
+						output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+					}
+					
+					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
+
+				}
 			}
 		}
 
@@ -862,8 +953,10 @@ client.on('message', message => {
 
 });
 
-// function to generate embeds
+// function to get variable names
+const varToString = varObj => Object.keys(varObj)[0]
 
+// function to generate embeds
 function generateEmbed(title, desc, imageSrc = undefined) {
     const newEmbed = new Discord.RichEmbed()
         .setColor('#b00000')
