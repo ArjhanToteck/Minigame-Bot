@@ -327,7 +327,7 @@ client.on('message', message => {
 					shufflePlayerBoard();
 					shuffleBotBoard();
 
-					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n " + stringifyArray(bsGames[message.author.id].playerBoard) + "\n Use new board` to generate another board, or use `start` to start the game."));
+					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n " + stringifyArray(bsGames[message.author.id].playerBoard) + "\n Use `new board` to generate another board, or use `start` to start the game."));
 			 }
       }
 		}
