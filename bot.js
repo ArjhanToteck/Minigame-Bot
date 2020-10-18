@@ -408,7 +408,7 @@ client.on('message', message => {
 								}
 							}
 					
-							output = " and hit!";
+							output += " and hit!";
 						}
 					}
 					
