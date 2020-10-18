@@ -67,359 +67,360 @@ client.on('message', message => {
 
         delete bsGames[message.author.id];
         message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
-      }
-
-			// new board
-			if (message.content === "new board" && !bsGames[message.author.id].inGame) {
-				message.delete(1);
-				var color = ":blue_square:";
-
-				function newBoard(){
-					return [
-						[":blue_square:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":keycap_ten:", "\n"],
-						[":regional_indicator_a:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_b:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_c:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_d:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_e:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_f:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_g:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_h:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_i:", color, color, color, color, color, color, color, color, color, color, "\n"],
-						[":regional_indicator_j:", color, color, color, color, color, color, color, color, color, color]
-					];
+      } else {
+					
+				// new board
+				if (message.content === "new board" && !bsGames[message.author.id].inGame) {
+					message.delete(1);
+					var color = ":blue_square:";
+	
+					function newBoard(){
+						return [
+							[":blue_square:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":keycap_ten:", "\n"],
+							[":regional_indicator_a:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_b:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_c:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_d:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_e:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_f:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_g:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_h:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_i:", color, color, color, color, color, color, color, color, color, color, "\n"],
+							[":regional_indicator_j:", color, color, color, color, color, color, color, color, color, color]
+						];
+					}
+	
+					bsGames[message.author.id].playerBoard = newBoard();
+					bsGames[message.author.id].playerShips = [];
+	
+					bsGames[message.author.id].botBoard = newBoard();
+					bsGames[message.author.id].botShips = [];
+	
+					function shufflePlayerBoard(){
+							bsGames[message.author.id].playerBoard = newBoard();
+							bsGames[message.author.id].playerShips = [];
+	
+							var ships = [5, 4, 3, 3, 2]; // lengths of ships
+	
+							// player board
+							for(var i = 0; i < ships.length; i++){
+								var shipCoords = [];
+								shipCoords[0] = Math.floor(Math.random() * (bsGames[message.author.id].playerBoard.length - 1) + 1); // picks row
+								shipCoords[1] = Math.floor(Math.random() * ((bsGames[message.author.id].playerBoard[1].length - 1) - 1) + 1); // picks column
+	
+								bsGames[message.author.id].playerShips[i] = {
+									length: ships[i],
+									coords: [],
+									hits: []
+								};
+						
+								// gets hit array
+								for(var j = 0; j < ships[i]; j++){
+									bsGames[message.author.id].playerShips[i].hits.push(false);
+								}
+						
+								// right
+								var right = true;
+						
+								// detects if ship can be placed to right
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] + j] != color){
+										right = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(right){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] + j] = ":fast_forward:";
+										bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0], shipCoords[1] + j]);
+									}
+									bsGames[message.author.id].playerShips[i].direction = "right";
+									continue;
+								}
+						
+								// up
+								var up = true;
+						
+								// detects if ship can be placed upwards
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].playerBoard[shipCoords[0] - j][shipCoords[1]] != color){
+										up = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(up){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].playerBoard[shipCoords[0] - j][shipCoords[1]] = ":arrow_double_up:";
+										bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0] - j, shipCoords[1]]);
+									}
+									bsGames[message.author.id].playerShips[i].direction = "up";
+									continue;
+								}
+						
+								// left
+								var left = true;
+						
+								// detects if ship can be placed to the left
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] - j] != color){
+										left = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(left){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] - j] = ":rewind:";
+										bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0], shipCoords[1] - j]);
+									}
+									bsGames[message.author.id].playerShips[i].direction = "left";
+									continue;
+								}
+						
+								var down = true;
+						
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].playerBoard[shipCoords[0] + j][shipCoords[1]] != color){
+										down = false;
+										break;
+									}
+								}
+						
+								if(down){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].playerBoard[shipCoords[0] + j][shipCoords[1]] = ":arrow_double_down:";
+										bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0] + j, shipCoords[1]]);
+									}
+									bsGames[message.author.id].playerShips[i].direction = "down";
+									continue;
+								}
+						
+								// if there are no positions for the coordinates, it will generate new coordinates
+								if(!up && !down && !left && !right){
+									i--;
+									continue;
+								}
+						
+							}
+						}
+					function shuffleBotBoard(){
+							bsGames[message.author.id].botBoard = newBoard();
+							bsGames[message.author.id].botShips = [];
+						
+							var ships = [5, 4, 3, 3, 2]; // lengths of ships
+						
+							// bot board
+							for(var i = 0; i < ships.length; i++){
+								var shipCoords = [];
+								shipCoords[0] = Math.floor(Math.random() * (bsGames[message.author.id].botBoard.length - 1) + 1); // picks row
+								shipCoords[1] = Math.floor(Math.random() * ((bsGames[message.author.id].botBoard[1].length - 1) - 1) + 1); // picks column
+						
+								bsGames[message.author.id].botShips[i] = {
+									length: ships[i],
+									coords: [],
+									hits: []
+								};
+						
+								// gets hit array
+								for(var j = 0; j < ships[i]; j++){
+									bsGames[message.author.id].botShips[i].hits.push(false);
+								}
+						
+								// right
+								var right = true;
+						
+								// detects if ship can be placed to right
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] + j] != color){
+										right = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(right){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] + j] = ":fast_forward:";
+										bsGames[message.author.id].botShips[i].coords.push([shipCoords[0], shipCoords[1] + j]);
+									}
+									bsGames[message.author.id].botShips[i].direction = "right";
+									continue;
+								}
+						
+								// up
+								var up = true;
+						
+								// detects if ship can be placed upwards
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].botBoard[shipCoords[0] - j][shipCoords[1]] != color){
+										up = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(up){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].botBoard[shipCoords[0] - j][shipCoords[1]] = ":arrow_double_up:";
+										bsGames[message.author.id].botShips[i].coords.push([shipCoords[0] - j, shipCoords[1]]);
+									}
+									bsGames[message.author.id].botShips[i].direction = "up";
+									continue;
+								}
+						
+								// left
+								var left = true;
+						
+								// detects if ship can be placed to the left
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] - j] != color){
+										left = false;
+										break;
+									}
+								}
+						
+								// places ship if possible
+								if(left){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] - j] = ":rewind:";
+										bsGames[message.author.id].botShips[i].coords.push([shipCoords[0], shipCoords[1] - j]);
+									}
+									bsGames[message.author.id].botShips[i].direction = "left";
+									continue;
+								}
+						
+								var down = true;
+						
+								for(var j = 0; j < ships[i]; j++){
+									if(bsGames[message.author.id].botBoard[shipCoords[0] + j][shipCoords[1]] != color){
+										down = false;
+										break;
+									}
+								}
+						
+								if(down){
+									for(var j = 0; j < ships[i]; j++){
+										bsGames[message.author.id].botBoard[shipCoords[0] + j][shipCoords[1]] = ":arrow_double_down:";
+										bsGames[message.author.id].botShips[i].coords.push([shipCoords[0] + j, shipCoords[1]]);
+									}
+									bsGames[message.author.id].botShips[i].direction = "down";
+									continue;
+								}
+						
+								// if there are no positions for the coordinates, it will generate new coordinates
+								if(!up && !down && !left && !right){
+									i--;
+									continue;
+								}
+						
+							}
+						}
+	
+					shufflePlayerBoard();
+					shuffleBotBoard();
+	
+					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `new board` to generate another board, or use `start` to start the game."));
+	      }
+	
+				// start
+				if (message.content === "start" && !bsGames[message.author.id].inGame) {
+					bsGames[message.author.id].inGame = true;
+					bsGames[message.author.id].turn = "player";
+					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
 				}
-
-				bsGames[message.author.id].playerBoard = newBoard();
-				bsGames[message.author.id].playerShips = [];
-
-				bsGames[message.author.id].botBoard = newBoard();
-				bsGames[message.author.id].botShips = [];
-
-				function shufflePlayerBoard(){
-						bsGames[message.author.id].playerBoard = newBoard();
-						bsGames[message.author.id].playerShips = [];
-
-						var ships = [5, 4, 3, 3, 2]; // lengths of ships
-
-						// player board
-						for(var i = 0; i < ships.length; i++){
-							var shipCoords = [];
-							shipCoords[0] = Math.floor(Math.random() * (bsGames[message.author.id].playerBoard.length - 1) + 1); // picks row
-							shipCoords[1] = Math.floor(Math.random() * ((bsGames[message.author.id].playerBoard[1].length - 1) - 1) + 1); // picks column
-
-							bsGames[message.author.id].playerShips[i] = {
-								length: ships[i],
-								coords: [],
-								hits: []
-							};
-					
-							// gets hit array
-							for(var j = 0; j < ships[i]; j++){
-								bsGames[message.author.id].playerShips[i].hits.push(false);
-							}
-					
-							// right
-							var right = true;
-					
-							// detects if ship can be placed to right
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] + j] != color){
-									right = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(right){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] + j] = ":fast_forward:";
-									bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0], shipCoords[1] + j]);
-								}
-								bsGames[message.author.id].playerShips[i].direction = "right";
-								continue;
-							}
-					
-							// up
-							var up = true;
-					
-							// detects if ship can be placed upwards
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].playerBoard[shipCoords[0] - j][shipCoords[1]] != color){
-									up = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(up){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].playerBoard[shipCoords[0] - j][shipCoords[1]] = ":arrow_double_up:";
-									bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0] - j, shipCoords[1]]);
-								}
-								bsGames[message.author.id].playerShips[i].direction = "up";
-								continue;
-							}
-					
-							// left
-							var left = true;
-					
-							// detects if ship can be placed to the left
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] - j] != color){
-									left = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(left){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].playerBoard[shipCoords[0]][shipCoords[1] - j] = ":rewind:";
-									bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0], shipCoords[1] - j]);
-								}
-								bsGames[message.author.id].playerShips[i].direction = "left";
-								continue;
-							}
-					
-							var down = true;
-					
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].playerBoard[shipCoords[0] + j][shipCoords[1]] != color){
-									down = false;
-									break;
-								}
-							}
-					
-							if(down){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].playerBoard[shipCoords[0] + j][shipCoords[1]] = ":arrow_double_down:";
-									bsGames[message.author.id].playerShips[i].coords.push([shipCoords[0] + j, shipCoords[1]]);
-								}
-								bsGames[message.author.id].playerShips[i].direction = "down";
-								continue;
-							}
-					
-							// if there are no positions for the coordinates, it will generate new coordinates
-							if(!up && !down && !left && !right){
-								i--;
-								continue;
-							}
-					
-						}
-					}
-				function shuffleBotBoard(){
-						bsGames[message.author.id].botBoard = newBoard();
-						bsGames[message.author.id].botShips = [];
-					
-						var ships = [5, 4, 3, 3, 2]; // lengths of ships
-					
-						// bot board
-						for(var i = 0; i < ships.length; i++){
-							var shipCoords = [];
-							shipCoords[0] = Math.floor(Math.random() * (bsGames[message.author.id].botBoard.length - 1) + 1); // picks row
-							shipCoords[1] = Math.floor(Math.random() * ((bsGames[message.author.id].botBoard[1].length - 1) - 1) + 1); // picks column
-					
-							bsGames[message.author.id].botShips[i] = {
-								length: ships[i],
-								coords: [],
-								hits: []
-							};
-					
-							// gets hit array
-							for(var j = 0; j < ships[i]; j++){
-								bsGames[message.author.id].botShips[i].hits.push(false);
-							}
-					
-							// right
-							var right = true;
-					
-							// detects if ship can be placed to right
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] + j] != color){
-									right = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(right){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] + j] = ":fast_forward:";
-									bsGames[message.author.id].botShips[i].coords.push([shipCoords[0], shipCoords[1] + j]);
-								}
-								bsGames[message.author.id].botShips[i].direction = "right";
-								continue;
-							}
-					
-							// up
-							var up = true;
-					
-							// detects if ship can be placed upwards
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].botBoard[shipCoords[0] - j][shipCoords[1]] != color){
-									up = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(up){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].botBoard[shipCoords[0] - j][shipCoords[1]] = ":arrow_double_up:";
-									bsGames[message.author.id].botShips[i].coords.push([shipCoords[0] - j, shipCoords[1]]);
-								}
-								bsGames[message.author.id].botShips[i].direction = "up";
-								continue;
-							}
-					
-							// left
-							var left = true;
-					
-							// detects if ship can be placed to the left
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] - j] != color){
-									left = false;
-									break;
-								}
-							}
-					
-							// places ship if possible
-							if(left){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].botBoard[shipCoords[0]][shipCoords[1] - j] = ":rewind:";
-									bsGames[message.author.id].botShips[i].coords.push([shipCoords[0], shipCoords[1] - j]);
-								}
-								bsGames[message.author.id].botShips[i].direction = "left";
-								continue;
-							}
-					
-							var down = true;
-					
-							for(var j = 0; j < ships[i]; j++){
-								if(bsGames[message.author.id].botBoard[shipCoords[0] + j][shipCoords[1]] != color){
-									down = false;
-									break;
-								}
-							}
-					
-							if(down){
-								for(var j = 0; j < ships[i]; j++){
-									bsGames[message.author.id].botBoard[shipCoords[0] + j][shipCoords[1]] = ":arrow_double_down:";
-									bsGames[message.author.id].botShips[i].coords.push([shipCoords[0] + j, shipCoords[1]]);
-								}
-								bsGames[message.author.id].botShips[i].direction = "down";
-								continue;
-							}
-					
-							// if there are no positions for the coordinates, it will generate new coordinates
-							if(!up && !down && !left && !right){
-								i--;
-								continue;
-							}
-					
-						}
-					}
-
-				shufflePlayerBoard();
-				shuffleBotBoard();
-
-				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "You are dealt a new board: \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `new board` to generate another board, or use `start` to start the game."));
-      }
-
-			// start
-			if (message.content === "start" && !bsGames[message.author.id].inGame) {
-				bsGames[message.author.id].inGame = true;
-				bsGames[message.author.id].turn = "player";
-				bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
-			}
-
-			// if game started
-			if(bsGames[message.author.id].inGame){
-
-				// (number)(letter)
-				if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
-					var coordinates = ["", ""];
-					var numbers = "1234567890";
-
-					for(var i = 0; i < message.content.length; i++){
-						if(numbers.includes(message.content[i])){
-							coordinates[0] += message.content[i];
-						} else {
-							coordinates[1] += message.content[i].toLowerCase();
-						}
-					}
-
-					coordinates[0] = parseInt(coordinates[0], 10);
-
-					var output = `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
-					attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
-
-					function attackCoordinates(board, coordinates){
-						var simpleCoords = coordinates;
-						var letters = "abcdefghij";
-						var numbers = "123456789";
-					
-						if((simpleCoords + "").length == 4){
-							// contains 10
-							if(numbers.includes((simpleCoords[0] + "")[0])){
-					
-								// starts with number
-								simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+	
+				// if game started
+				if(bsGames[message.author.id].inGame){
+	
+					// (number)(letter)
+					if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
+						var coordinates = ["", ""];
+						var numbers = "1234567890";
+	
+						for(var i = 0; i < message.content.length; i++){
+							if(numbers.includes(message.content[i])){
+								coordinates[0] += message.content[i];
 							} else {
-					
-								// starts with letter
-								simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
-							}
-						} else {
-							// doesn't contain 10
-							if(numbers.includes(simpleCoords[0])){
-					
-								// starts with number
-								simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
-							} else {
-					
-								// starts with letter
-								simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+								coordinates[1] += message.content[i].toLowerCase();
 							}
 						}
-					
-						if(board[simpleCoords[0]][simpleCoords[1]] == color){
-							// miss
-							board[simpleCoords[0]][simpleCoords[1]] = ":x:";
-							output += " and miss."
-						} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
-							// hit there already
-							output = "You can't fire there because you already did before!";
-						} else {
-							board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
-							// hit
-							if(board == bsGames[message.author.id].playerBoard){
-								for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-									if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
-										bsGames[message.author.id].playerShips[i].hits[(bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)] = true;
+	
+						coordinates[0] = parseInt(coordinates[0], 10);
+	
+						var output = `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
+						attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
+	
+						function attackCoordinates(board, coordinates){
+							var simpleCoords = coordinates;
+							var letters = "abcdefghij";
+							var numbers = "123456789";
+						
+							if((simpleCoords + "").length == 4){
+								// contains 10
+								if(numbers.includes((simpleCoords[0] + "")[0])){
+						
+									// starts with number
+									simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+								} else {
+						
+									// starts with letter
+									simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+								}
+							} else {
+								// doesn't contain 10
+								if(numbers.includes(simpleCoords[0])){
+						
+									// starts with number
+									simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+								} else {
+						
+									// starts with letter
+									simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+								}
+							}
+						
+							if(board[simpleCoords[0]][simpleCoords[1]] == color){
+								// miss
+								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
+								output += " and miss."
+							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
+								// hit there already
+								output = "You can't fire there because you already did before!";
+							} else {
+								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
+								// hit
+								if(board == bsGames[message.author.id].playerBoard){
+									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
+										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
+											bsGames[message.author.id].playerShips[i].hits[(bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)] = true;
+										}
+									}
+								} else {
+									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
+										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
+											bsGames[message.author.id].botShips[i].hits[(bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)] = true;
+										}
 									}
 								}
-							} else {
-								for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-									if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
-										bsGames[message.author.id].botShips[i].hits[(bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)] = true;
-									}
-								}
+						
+								output += " and hit!";
 							}
-					
-							output += " and hit!";
 						}
+						
+						if(output != "You can't fire there because you already did before!"){
+							//bsGames[message.author.id].turn = "bot";
+						} else {
+							output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+						}
+						
+						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
+	
 					}
-					
-					if(output != "You can't fire there because you already did before!"){
-						//bsGames[message.author.id].turn = "bot";
-					} else {
-						output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
-					}
-					
-					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
-
 				}
 			}
 		}
