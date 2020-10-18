@@ -48,7 +48,7 @@ client.on('message', message => {
         };
 
         message.channel.send(generateEmbed("Battleship", 'Starting a game of battleship with ' + sender + '... \n \n Use `new board` to generate your board and proceed.')).then((msg) => {
-            bjGames[message.author.id].editable = msg;
+            bsGames[message.author.id].editable = msg;
         })
 
         message.delete(1);
