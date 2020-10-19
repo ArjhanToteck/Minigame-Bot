@@ -93,6 +93,7 @@ client.on('message', message => {
 					bsGames[message.author.id].playerBoard = newBoard();
 					bsGames[message.author.id].playerShips = [];
 	
+					bsGames[message.author.id].botPreview = newBoard();
 					bsGames[message.author.id].botBoard = newBoard();
 					bsGames[message.author.id].botShips = [];
 	
@@ -417,6 +418,10 @@ client.on('message', message => {
 						
 							if(aimedShip == -1){
 								// miss
+								if(board == bsGames[message.author.id].botBoard){
+									bsGames[message.author.id].botPreview[simpleCoords[0]][simpleCoords[1]] = ":x:";
+								}
+								
 								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
 								output += " and miss."
 							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" ||  board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
@@ -424,6 +429,10 @@ client.on('message', message => {
 								output = "You can't fire there because you already did before!";
 							} else {
 								// hit
+								if(board == bsGames[message.author.id].botBoard){
+									bsGames[message.author.id].botPreview[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
+								}
+								
 								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
 						
 								output += " and hit!";
@@ -431,7 +440,7 @@ client.on('message', message => {
 
 							if(output != "You can't fire there because you already did before!"){
 								bsGames[message.author.id].turn = "bot";
-								output += "\n \n Enemy preview will be here."
+								output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): " + stringifyArray(bsGames[message.author.id].botPreview)
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
 							}
