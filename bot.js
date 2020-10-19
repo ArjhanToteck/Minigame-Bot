@@ -416,7 +416,7 @@ client.on('message', message => {
 									}
 								}
 						
-							if(aimedShip == -1){
+							if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
 								// miss
 								if(board == bsGames[message.author.id].botBoard){
 									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":x:";
