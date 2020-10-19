@@ -73,6 +73,7 @@ client.on('message', message => {
 				if (message.content === "new board" && !bsGames[message.author.id].inGame) {
 					message.delete(1);
 					var color = ":blue_square:";
+					bsGames[message.author.id].color = color;
 	
 					function newBoard(){
 						return [
