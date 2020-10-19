@@ -409,7 +409,7 @@ client.on('message', message => {
 								// miss
 								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
 								output += " and miss."
-							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || aimedShip.hits[aimedShipPoint] == true){
+							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" ||  board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
 								// hit there already
 								output = "You can't fire there because you already did before!";
 							} else {
