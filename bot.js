@@ -384,30 +384,37 @@ client.on('message', message => {
 									simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
 								}
 							}
-						
-							if(board[simpleCoords[0]][simpleCoords[1]] == bsGames[message.author.id].color){
-								// miss
-								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
-								output += " and miss."
-							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
-								// hit there already
-								output = "You can't fire there because you already did before!";
-							} else {
-								// hit
-								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
-								if(board == bsGames[message.author.id].playerBoard){
+							
+							var aimedShip = -1;
+							var aimedShipPoint = -1;
+							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
-											bsGames[message.author.id].playerShips[i].hits[(bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)] = true;
+											aimedShip = bsGames[message.author.id].playerShips[i];
+											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
+											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
 										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
-											bsGames[message.author.id].botShips[i].hits[(bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)] = true;
+											aimedShip = bsGames[message.author.id].botShips[i];
+											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
+											break;
 										}
 									}
 								}
+						
+							if(aimedShip == -1){
+								// miss
+								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
+								output += " and miss."
+							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" || aimedShip.hits[aimedShipPoint] == true){
+								// hit there already
+								output = "You can't fire there because you already did before!";
+							} else {
+								// hit
+								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
 						
 								output += " and hit!";
 							}
@@ -732,7 +739,6 @@ client.on('message', message => {
 
 
     // starts game
-
     if (message.content === '!rps' && !rpsGames.hasOwnProperty(message.author.id)) {
         rpsGames[message.author.id] = {
             started: true
@@ -794,7 +800,6 @@ client.on('message', message => {
 
 
     // starts game
-
     if ((message.content === '!war' || message.content === '!war kill' || message.content === '!war capture') && !warGames.hasOwnProperty(message.author.id)) {
         warGames[message.author.id] = {}
 				
