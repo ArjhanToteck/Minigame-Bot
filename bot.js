@@ -358,7 +358,7 @@ client.on('message', message => {
 	
 						var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid. Please try again.`;
 
-						if(output){
+						if(!invalid){
 							attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
 						}
 
