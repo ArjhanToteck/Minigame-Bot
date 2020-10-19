@@ -342,6 +342,7 @@ client.on('message', message => {
 					if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
 						var coordinates = ["", ""];
 						var numbers = "1234567890";
+						var letters = "abcdefghij"
 	
 						for(var i = 0; i < message.content.length; i++){
 							if(numbers.includes(message.content[i])){
@@ -352,10 +353,15 @@ client.on('message', message => {
 						}
 	
 						coordinates[0] = parseInt(coordinates[0], 10);
+						
+						var invalid = coordinates[0] > 10 || !letters.includes(coordinates[1]) || coordinates[1].length > 1;
 	
-						var output = `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
-						attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
-	
+						var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid. Please try again.`;
+
+						if(output){
+							attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
+						}
+
 						function attackCoordinates(board, coordinates){
 							var simpleCoords = coordinates;
 							var letters = "abcdefghij";
@@ -418,16 +424,17 @@ client.on('message', message => {
 						
 								output += " and hit!";
 							}
+
+							if(output != "You can't fire there because you already did before!"){
+								bsGames[message.author.id].turn = "bot";
+								output += "\n \n Enemy preview will be here."
+							} else {
+								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+							}
 						}
-						
-						if(output != "You can't fire there because you already did before!"){
-							//bsGames[message.author.id].turn = "bot";
-						} else {
-							output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
-						}
-						
+
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
-	
+
 					}
 				}
 			}
@@ -435,7 +442,6 @@ client.on('message', message => {
 
     // blackjack
     //___________________________________________________________
-
 
     // starts game
 
