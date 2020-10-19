@@ -419,21 +419,21 @@ client.on('message', message => {
 							if(aimedShip == -1){
 								// miss
 								if(board == bsGames[message.author.id].botBoard){
-									bsGames[message.author.id].botPreview[simpleCoords[0]][simpleCoords[1]] = ":x:";
+									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":x:";
 								}
 								
 								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
 								output += " and miss."
-							} else if(board[simpleCoords[0]][simpleCoords[1]] == ":x:" ||  board[simpleCoords[0]][simpleCoords[1]] == ":white_check_mark:"){
+							} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
 								// hit there already
 								output = "You can't fire there because you already did before!";
 							} else {
 								// hit
 								if(board == bsGames[message.author.id].botBoard){
-									bsGames[message.author.id].botPreview[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
+									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								}
 								
-								board[simpleCoords[0]][simpleCoords[1]] = ":white_check_mark:";
+								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 						
 								output += " and hit!";
 							}
