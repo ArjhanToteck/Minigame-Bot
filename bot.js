@@ -423,7 +423,7 @@ client.on('message', message => {
 									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":x:";
 								}
 								
-								board[simpleCoords[0]][simpleCoords[1]] = ":x:";
+								board[simpleCoords[1]][simpleCoords[0]] = ":x:";
 								output += " and miss."
 							} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
 								// hit there already
