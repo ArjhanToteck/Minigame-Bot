@@ -330,6 +330,8 @@ client.on('message', message => {
 	
 				// start
 				if (message.content === "start" && !bsGames[message.author.id].inGame) {
+					message.delete(1);
+		
 					bsGames[message.author.id].inGame = true;
 					bsGames[message.author.id].turn = "player";
 					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
@@ -340,6 +342,8 @@ client.on('message', message => {
 	
 					// (number)(letter)
 					if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
+						message.delete(1);
+
 						var coordinates = ["", ""];
 						var numbers = "1234567890";
 						var letters = "abcdefghij"
