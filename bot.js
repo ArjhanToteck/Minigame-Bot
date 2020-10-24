@@ -97,6 +97,10 @@ client.on('message', message => {
 					bsGames[message.author.id].botPreview = newBoard();
 					bsGames[message.author.id].botBoard = newBoard();
 					bsGames[message.author.id].botShips = [];
+					bsGames[message.author.id].botKnowledge = {
+						hits: {},
+						misses: []
+					}
 	
 					function shufflePlayerBoard(){
 							bsGames[message.author.id].playerBoard = newBoard();
@@ -450,6 +454,8 @@ client.on('message', message => {
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
 
 					}
+
+					if (message.contents == ) {}
 				}
 			}
 		}
@@ -757,7 +763,6 @@ client.on('message', message => {
     // rock, paper, scissors
     //___________________________________________________________
 
-
     // starts game
     if (message.content === '!rps' && !rpsGames.hasOwnProperty(message.author.id)) {
         rpsGames[message.author.id] = {
@@ -1036,5 +1041,4 @@ function stringifyArray(arr, split = ""){
 }
 
 // bot login
-
 client.login(process.env.BOT_TOKEN); //BOT_TOKEN is the Client Secret
