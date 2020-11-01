@@ -455,7 +455,7 @@ client.on('message', message => {
 
 					}
 
-					if (message.contents == ) {}
+					if (message.contents == "") {}
 				}
 			}
 		}
