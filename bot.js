@@ -382,7 +382,7 @@ client.on('message', message => {
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 
 						if(Object.keys(bsGames[message.author.id].botKnowledge.hits == 0)){
-							while(Object.keys(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
+							while(!bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
 						}
