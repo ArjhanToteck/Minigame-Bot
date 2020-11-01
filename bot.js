@@ -446,7 +446,7 @@ client.on('message', message => {
 
 							if(output != "You can't fire there because you already did before!"){
 								//bsGames[message.author.id].turn = "bot";
-								output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview + "\n \n Type `ok` to continue.");
+								output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
 							}
