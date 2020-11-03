@@ -340,7 +340,7 @@ client.on('message', message => {
 		
 					bsGames[message.author.id].inGame = true;
 					bsGames[message.author.id].turn = "player";
-					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Your board: \n \n " + stringifyArray(bsGames[message.author.id].playerBoard)));
+					bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "The game has now started. Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map. \n \n Preview of my board: \n \n " + stringifyArray(bsGames[message.author.id].botPreview)));
 				}
 	
 				// if game started
@@ -541,8 +541,8 @@ client.on('message', message => {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
 							}
 						}
-
-
+						
+						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
 					}
 				}
 			}
