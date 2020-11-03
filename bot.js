@@ -456,7 +456,10 @@ client.on('message', message => {
 
 					}
 
+					// ok
 					if (message.contents == "ok" && bsGames[message.author.id].turn == "bot") {
+						message.delete(1);
+
 						var letters = "abcdefghij";
 						var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
