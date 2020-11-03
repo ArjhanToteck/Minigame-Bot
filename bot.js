@@ -468,7 +468,7 @@ client.on('message', message => {
 						}
 
 						var output = `I fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
-						attackCoordinates(player, coordinates);
+						attackCoordinates(bsGames[message.author.id].playerBoard, coordinates);
 
 						function attackCoordinates(board, coordinates){
 							var simpleCoords = coordinates;
