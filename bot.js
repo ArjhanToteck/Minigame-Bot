@@ -466,6 +466,83 @@ client.on('message', message => {
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
 						}
+
+						var output = `I fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
+						attackCoordinates(player, coordinates);
+
+						function attackCoordinates(board, coordinates){
+							var simpleCoords = coordinates;
+							var letters = "abcdefghij";
+							var numbers = "123456789";
+						
+							// turns letter, number or number, letter notation into number, number notation
+							if((simpleCoords + "").length == 4){
+								// contains 10
+								if(numbers.includes((simpleCoords[0] + "")[0])){
+						
+									// starts with number
+									simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+								} else {
+						
+									// starts with letter
+									simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+								}
+							} else {
+								// doesn't contain 10
+								if(numbers.includes(simpleCoords[0])){
+						
+									// starts with number
+									simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+								} else {
+						
+									// starts with letter
+									simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+								}
+							}
+							
+							var aimedShip = -1;
+							var aimedShipPoint = -1;
+							if(board == bsGames[message.author.id].playerBoard){
+									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
+										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
+											aimedShip = bsGames[message.author.id].playerShips[i];
+											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
+											break;
+										}
+									}
+								} else {
+									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
+										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
+											aimedShip = bsGames[message.author.id].botShips[i];
+											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
+											break;
+										}
+									}
+								}
+						
+							if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
+								// miss
+								board[simpleCoords[1]][simpleCoords[0]] = ":x:";
+								output += " and miss."
+							} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
+								// hit there already
+								output = "You can't fire there because you already did before!";
+							} else {
+								// hit
+								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
+						
+								output += " and hit!";
+							}
+
+							if(output != "You can't fire there because you already did before!"){
+								bsGames[message.author.id].turn = "player";
+								output += "\n \n Your board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
+							} else {
+								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+							}
+						}
+
+
 					}
 				}
 			}
