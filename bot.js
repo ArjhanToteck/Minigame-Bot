@@ -459,6 +459,7 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
+						console.log("yeet");
 						message.delete(1);
 
 						var letters = "abcdefghij";
