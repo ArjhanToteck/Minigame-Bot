@@ -509,7 +509,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
+											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords);
 											break;
 										}
 									}
@@ -517,7 +517,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
 										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
+											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords);
 											break;
 										}
 									}
@@ -541,7 +541,7 @@ client.on('message', message => {
 								bsGames[message.author.id].turn = "player";
 								output += "\n \n Your board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							} else {
-								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							}
 						}
 						
@@ -562,24 +562,24 @@ client.on('message', message => {
         };
 
 				// deck
-				bjGames[message.author.id].deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+				bjGames[message.author.id].deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 				// deals cards
 				bjGames[message.author.id].playerCards = [bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1), bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1)];
-				bjGames[message.author.id].playerCards = bjGames[message.author.id].playerCards.flat(2)
+				bjGames[message.author.id].playerCards = bjGames[message.author.id].playerCards.flat(2);
 
-				bjGames[message.author.id].botCards = [bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1), bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1)]
-				bjGames[message.author.id].botCards = bjGames[message.author.id].botCards.flat(2)
+				bjGames[message.author.id].botCards = [bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1), bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1)];
+				bjGames[message.author.id].botCards = bjGames[message.author.id].botCards.flat(2);
 				
 				// assigns names to cards
 				var deckCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
-				var deckPlayerCards = [deckCards[bjGames[message.author.id].playerCards[0]], deckCards[bjGames[message.author.id].playerCards[1]]]
-				var deckBotCards = [deckCards[bjGames[message.author.id].botCards[0]], deckCards[bjGames[message.author.id].botCards[1]]]
+				var deckPlayerCards = [deckCards[bjGames[message.author.id].playerCards[0]], deckCards[bjGames[message.author.id].playerCards[1]]];
+				var deckBotCards = [deckCards[bjGames[message.author.id].botCards[0]], deckCards[bjGames[message.author.id].botCards[1]]];
 				
 				// asigns values to cards
-				var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"]
-				var valuePlayerCards = [valueCards[bjGames[message.author.id].playerCards[0]], valueCards[bjGames[message.author.id].playerCards[1]]]
-				var valueBotCards = [valueCards[bjGames[message.author.id].botCards[0]], valueCards[bjGames[message.author.id].botCards[1]]]
+				var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"];
+				var valuePlayerCards = [valueCards[bjGames[message.author.id].playerCards[0]], valueCards[bjGames[message.author.id].playerCards[1]]];
+				var valueBotCards = [valueCards[bjGames[message.author.id].botCards[0]], valueCards[bjGames[message.author.id].botCards[1]]];
 				
         message.channel.send(generateEmbed("Blackjack", 'Starting a game of blackjack with ' + sender + '... \n \n The cards are now dealt. You have a ' + deckPlayerCards[0] + ' (worth ' + valuePlayerCards[0] + ' points) and a ' + deckPlayerCards[1] + ' (worth ' + valuePlayerCards[1]  + ' points). \n I have a ' + deckBotCards[0] + " (worth " + valueBotCards[0] + " points) and an unknown card. \n \n Use `hit me` or `stand` to proceed.")).then((msg) => {
             bjGames[message.author.id].editable = msg;
@@ -609,11 +609,11 @@ client.on('message', message => {
 						
 						var newCard = bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1);
 						newCard = newCard.flat(2);
-						bjGames[message.author.id].playerCards.push(newCard)
+						bjGames[message.author.id].playerCards.push(newCard);
 						
 						// assigns names and values to cards
 						
-						var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"]
+						var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"];
 						var deckCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
 						var deckPlayerCards = [];
 						var deckBotCards = [];
@@ -625,27 +625,27 @@ client.on('message', message => {
 							deckPlayerValueCards.push(valueCards[bjGames[message.author.id].playerCards[i]]);
 						}
 					
-						deckPlayerCards.pop()
-						deckPlayerValueCards.pop()
-						deckPlayerCards.pop()
-						deckPlayerValueCards.pop()
+						deckPlayerCards.pop();
+						deckPlayerValueCards.pop();
+						deckPlayerCards.pop();
+						deckPlayerValueCards.pop();
 					
 						for(var i = 0; i < deckCards[bjGames[message.author.id].botCards.length]; i++){
 							deckBotCards.push(deckCards[bjGames[message.author.id].botCards[i]]);
 							deckBotValueCards.push(valueCards[bjGames[message.author.id].botCards[i]]);
 						}
 					
-						deckBotCards.pop()
-						deckBotValueCards.pop()
-						deckBotCards.pop()
-						deckBotValueCards.pop()
+						deckBotCards.pop();
+						deckBotValueCards.pop();
+						deckBotCards.pop();
+						deckBotValueCards.pop();
 						
 						// gets readable hand for player
 						
-						var playerHand = ""
+						var playerHand = "";
 						
 						for(var i = 0; i < deckPlayerCards.length; i++){
-							playerHand += deckPlayerCards[i] + " (worth " + deckPlayerValueCards[i] + "), "
+							playerHand += deckPlayerCards[i] + " (worth " + deckPlayerValueCards[i] + "), ";
 						}
 							
 						playerHand = playerHand.slice(0, -2); // removes the ", " at the end
@@ -692,7 +692,7 @@ client.on('message', message => {
 					
 					// assigns names and values to cards
 
-						var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"]
+						var valueCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, "1 or 10"];
 						var deckCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
 						var deckPlayerCards = [];
 						var deckBotCards = [];
@@ -706,10 +706,10 @@ client.on('message', message => {
 						}
 					
 						// removes blank items of arrays
-						deckPlayerCards.pop()
-						deckPlayerValueCards.pop()
-						deckPlayerCards.pop()
-						deckPlayerValueCards.pop()
+						deckPlayerCards.pop();
+						deckPlayerValueCards.pop();
+						deckPlayerCards.pop();
+						deckPlayerValueCards.pop();
 						
 						// gets names and values from card ids
 						for(var i = 0; i < deckCards[bjGames[message.author.id].botCards.length]; i++){
@@ -718,10 +718,10 @@ client.on('message', message => {
 						}
 						
 						// removes blank items of arrays
-						deckBotCards.pop()
-						deckBotValueCards.pop()
-						deckBotCards.pop()
-						deckBotValueCards.pop()
+						deckBotCards.pop();
+						deckBotValueCards.pop();
+						deckBotCards.pop();
+						deckBotValueCards.pop();
 						
 						// gets card values
 						
@@ -767,24 +767,24 @@ client.on('message', message => {
 						}
 					
 					
-						var outputMessage = ""
+						var outputMessage = "";
 						
 						// calculates bot's moves
 						
-						var botMaxGamble = Math.floor(Math.random() * (18 - 16) + 16)
+						var botMaxGamble = Math.floor(Math.random() * (18 - 16) + 16);
 						
 						while(botTotal < botMaxGamble){ // calculates how many times bot should be hit
 						// deals new card
 							
 						var newCard = bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1);
 						newCard = newCard.flat(2);
-						bjGames[message.author.id].botCards.push(newCard)
+						bjGames[message.author.id].botCards.push(newCard);
 						
 						outputMessage += "I use `hit me` and recieve another card. \n \n"
 						
 						// revaluates values
 						
-						botTotal += [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10][newCard]
+						botTotal += [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10][newCard];
 						
 						// revaluates variables
 						
@@ -796,54 +796,54 @@ client.on('message', message => {
 							deckBotValueCards.push(valueCards[bjGames[message.author.id].botCards[i]]);
 						}
 					
-						deckBotCards.pop()
-						deckBotValueCards.pop()
-						deckBotCards.pop()
-						deckBotValueCards.pop()
+						deckBotCards.pop();
+						deckBotValueCards.pop();
+						deckBotCards.pop();
+						deckBotValueCards.pop();
 						
 						}
 						
 						// bot stands
-						outputMessage += "I use `stand`. \n \n Now that everyone has used `stand`, we reveal our hands and see who wins. \n \n"
+						outputMessage += "I use `stand`. \n \n Now that everyone has used `stand`, we reveal our hands and see who wins. \n \n";
 						
 						// gets readable hand for player
 						
-						var playerHand = ""
+						var playerHand = "";
 						
 						for(var i = 0; i < deckPlayerCards.length; i++){
-							playerHand += deckPlayerCards[i] + " (worth " + deckPlayerValueCards[i] + "), "
+							playerHand += deckPlayerCards[i] + " (worth " + deckPlayerValueCards[i] + "), ";
 						}
 							
 						playerHand = playerHand.slice(0, -2); // removes the ", " at the end
 					
 						// gets readable hand for bot
 					
-						var botHand = ""
+						var botHand = "";
 						
 						for(var i = 0; i < deckBotCards.length; i++){
-							botHand += deckBotCards[i] + " (worth " + deckBotValueCards[i] + "), "
+							botHand += deckBotCards[i] + " (worth " + deckBotValueCards[i] + "), ";
 						}
 					
 						botHand = botHand.slice(0, -2); // removes the ", " at the end
 						
 						// reveals both hands
-						outputMessage += "My revealed hand: " + botHand + " worth a total of **" + botTotal + "** points. \n \n Your revealed hand: " + playerHand + " worth a total of **" + playerTotal + "** points."
+						outputMessage += "My revealed hand: " + botHand + " worth a total of **" + botTotal + "** points. \n \n Your revealed hand: " + playerHand + " worth a total of **" + playerTotal + "** points.";
 					
 						// calculates who won
 						
 						if(botTotal > 21){
-							outputMessage += "\n \n **Bust!** Since I had a total value of more than 21, I lose! \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"
+							outputMessage += "\n \n **Bust!** Since I had a total value of more than 21, I lose! \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!";
 						} else if(playerTotal > 21){
-							outputMessage += "\n \n **Bust!** Since you had a total value of more than 21, you lose! \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"
+							outputMessage += "\n \n **Bust!** Since you had a total value of more than 21, you lose! \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!";
 						} else if(botTotal > playerTotal){
-							outputMessage += "\n \n I have more points than you without going over 21. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"
+							outputMessage += "\n \n I have more points than you without going over 21. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!";
 						} else if(botTotal == playerTotal){
-							outputMessage += "\n \n We got the same score without going over 21. \n \n :tada: **It's a tie!** :tada: \n Thank you for playing, " + sender + "!"
+							outputMessage += "\n \n We got the same score without going over 21. \n \n :tada: **It's a tie!** :tada: \n Thank you for playing, " + sender + "!";
 						} else {
-							outputMessage += "\n \n You have more points than me without going over 21. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"
+							outputMessage += "\n \n You have more points than me without going over 21. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!";
 						}
 					
-					bjGames[message.author.id].editable.edit(generateEmbed("Blackjack", outputMessage))
+					bjGames[message.author.id].editable.edit(generateEmbed("Blackjack", outputMessage));
 					delete bjGames[message.author.id];
 						
 				}
@@ -883,27 +883,27 @@ client.on('message', message => {
 
         // rock, paper, or scissors
         if (message.content === "rock" || message.content === "paper" || message.content === "scissors" || message.content === "r" || message.content === "p" || message.content === "s") {
-            var playerAttack = message.content[0]
-            var botAttack = ["r", "p", "s"]
+            var playerAttack = message.content[0];
+            var botAttack = ["r", "p", "s"];
 						botAttack = botAttack[Math.floor(Math.random() * Math.floor(3))];
 						
-						var fullAttacks = ["rock", "paper", "scissors"]
-						var abbAttacks = ["r", "p", "s"]
+						var fullAttacks = ["rock", "paper", "scissors"];
+						var abbAttacks = ["r", "p", "s"];
 						
-						var fullBotAttack = fullAttacks[abbAttacks.indexOf(botAttack)]
-						var fullPlayerAttack = fullAttacks[abbAttacks.indexOf(playerAttack)]
+						var fullBotAttack = fullAttacks[abbAttacks.indexOf(botAttack)];
+						var fullPlayerAttack = fullAttacks[abbAttacks.indexOf(playerAttack)];
 					
             message.delete(1);
 
-            /*User wins the round*/
+            //User wins the round
             if ((botAttack == "r" && playerAttack == "p") || (botAttack == "p" && playerAttack == "s") || (botAttack == "s" && playerAttack == "r")) {
                 rpsGames[message.author.id].editable.edit(generateEmbed("Rock, Paper, Scissors", "I used " + fullBotAttack + " and you used " + fullPlayerAttack + ". You win!"));
                 delete rpsGames[message.author.id];
-                /*Bot wins the round*/
+                //Bot wins the round
             } else if ((botAttack == "p" && playerAttack == "r") || (botAttack == "s" && playerAttack == "p") || (botAttack == "r" && playerAttack == "s")) {
                 rpsGames[message.author.id].editable.edit(generateEmbed("Rock, Paper, Scissors", "I used " + fullBotAttack + " and you used " + fullPlayerAttack + ". I win! Better luck next time."));
                 delete rpsGames[message.author.id];
-                /*Tie*/
+                //Tie
             } else {
                 rpsGames[message.author.id].editable.edit(generateEmbed("Rock, Paper, Scissors", "I used " + fullBotAttack + " and you used " + fullPlayerAttack + ". It's a tie! \n Starting tiebreaker round... \n \n Use `r`, `p`, or `s` to choose rock, paper, or scissors."));
             }
@@ -917,7 +917,7 @@ client.on('message', message => {
 
     // starts game
     if ((message.content === '!war' || message.content === '!war kill' || message.content === '!war capture') && !warGames.hasOwnProperty(message.author.id)) {
-        warGames[message.author.id] = {}
+        warGames[message.author.id] = {};
 				
 				// capture or kill
 				if(message.content === '!war capture'){
@@ -930,7 +930,7 @@ client.on('message', message => {
             warGames[message.author.id].editable = msg;
         })
 
-        warGames[message.author.id].stakes = 1
+        warGames[message.author.id].stakes = 1;
 				
 				
 
@@ -938,13 +938,13 @@ client.on('message', message => {
 
         // generates deck and draws random card for both players
         var deckNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        deckNumbers = shuffle(deckNumbers)
+        deckNumbers = shuffle(deckNumbers);
 
         //splits deck between bot and player
         var playerCards = deckNumbers.splice(0, 26);
         var botCards = deckNumbers;
-        warGames[message.author.id].playerCards = playerCards
-        warGames[message.author.id].botCards = botCards
+        warGames[message.author.id].playerCards = playerCards;
+        warGames[message.author.id].botCards = botCards;
 
 
 
@@ -987,21 +987,21 @@ client.on('message', message => {
 								// repeats for the stakes
                 for (var i = 0; i < warGames[message.author.id].stakes; i++) {
                     // moves card to end of bot deck
-                    warGames[message.author.id].botCards.push(warGames[message.author.id].botCards[0])
+                    warGames[message.author.id].botCards.push(warGames[message.author.id].botCards[0]);
 										
-                    warGames[message.author.id].botCards.shift()
+                    warGames[message.author.id].botCards.shift();
 										
 										// adds defeated card to user deck if type is capture
 										if(warGames[message.author.id].type == "Capture"){
-											warGames[message.author.id].botCards.push(warGames[message.author.id].playerCards[0])
+											warGames[message.author.id].botCards.push(warGames[message.author.id].playerCards[0]);
 										}
 
                     // deletes defeated card(s)
-                    warGames[message.author.id].playerCards.shift()
+                    warGames[message.author.id].playerCards.shift();
                 }
 
                 // resets the stakes
-                warGames[message.author.id].stakes = 1
+                warGames[message.author.id].stakes = 1;
 
                 var winner = ""
 
@@ -1026,20 +1026,20 @@ client.on('message', message => {
 								// repeats for the stakes
                 for (var i = 0; i < warGames[message.author.id].stakes; i++) {
                     // moves card to end of user deck
-                    warGames[message.author.id].playerCards.push(warGames[message.author.id].playerCards[0])
-                    warGames[message.author.id].playerCards.shift()
+                    warGames[message.author.id].playerCards.push(warGames[message.author.id].playerCards[0]);
+                    warGames[message.author.id].playerCards.shift();
 										
 										// adds defeated card to user deck if type is capture
 										if(warGames[message.author.id].type == "Capture"){
-											warGames[message.author.id].playerCards.push(warGames[message.author.id].botCards[0])
+											warGames[message.author.id].playerCards.push(warGames[message.author.id].botCards[0]);
 										}
 
                     // deletes defeated card(s)
-                    warGames[message.author.id].botCards.shift()
+                    warGames[message.author.id].botCards.shift();
                 }
 
                 // resets the stakes
-                warGames[message.author.id].stakes = 1
+                warGames[message.author.id].stakes = 1;
 
                 // winning condition
 
@@ -1058,15 +1058,15 @@ client.on('message', message => {
             /*Tie*/
             } else {
 
-                warGames[message.author.id].stakes = 5
+                warGames[message.author.id].stakes = 5;
 
                 // moves card to end of user deck
-                warGames[message.author.id].playerCards.push(warGames[message.author.id].playerCards[0])
-                warGames[message.author.id].playerCards.shift()
+                warGames[message.author.id].playerCards.push(warGames[message.author.id].playerCards[0]);
+                warGames[message.author.id].playerCards.shift();
 
                 // moves card to end of bot deck
-                warGames[message.author.id].botCards.push(warGames[message.author.id].botCards[0])
-                warGames[message.author.id].botCards.shift()
+                warGames[message.author.id].botCards.push(warGames[message.author.id].botCards[0]);
+                warGames[message.author.id].botCards.shift();
 
                 warGames[message.author.id].editable.edit(generateEmbed("War (" + warGames[message.author.id].type + ")", "You turned a " + playerAttack + " and I turned a " + botAttack + ". It's a tie so the stakes of the next rounds will be an extra four cards. This means whoever loses the next round will lose five cards rather than just one. Type `go` to proceed to the next round." + "\n \n You have " + warGames[message.author.id].playerCards.length + " cards left. I have " + warGames[message.author.id].botCards.length + " cards left."));
 
@@ -1077,7 +1077,7 @@ client.on('message', message => {
 });
 
 // function to get variable names
-const varToString = varObj => Object.keys(varObj)[0]
+const varToString = varObj => Object.keys(varObj)[0];
 
 // function to generate embeds
 function generateEmbed(title, desc, imageSrc = undefined) {
@@ -1088,7 +1088,7 @@ function generateEmbed(title, desc, imageSrc = undefined) {
         .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png');
 	
 		if(!!imageSrc){
-			newEmbed.setImage(imageSrc)
+			newEmbed.setImage(imageSrc);
 		}
 
     var output = {
