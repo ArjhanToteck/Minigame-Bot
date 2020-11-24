@@ -463,7 +463,7 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
-						console.log(bsGames[message.author.id].playerShips)[0].coords;
+						console.log(bsGames[message.author.id].playerShips[0].coords);
 						message.delete(1);
 
 						var letters = "abcdefghij";
