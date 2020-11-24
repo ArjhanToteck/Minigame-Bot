@@ -346,6 +346,13 @@ client.on('message', message => {
 	
 				// if game started
 				if(bsGames[message.author.id].inGame){
+					
+					// ok
+					if (message.contents == "ok" && bsGames[message.author.id].turn == "bot") {
+						console.log("epic");
+						message.delete(1);
+
+					}
 	
 					// (number)(letter)
 					if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
@@ -458,12 +465,7 @@ client.on('message', message => {
 
 					}
 
-					// ok
-					if (message.contents == "ok" && bsGames[message.author.id].turn == "bot") {
-						console.log("epic");
-						message.delete(1);
-
-					}
+					
 				}
 			}
 		}
