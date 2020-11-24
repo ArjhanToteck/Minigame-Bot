@@ -55,6 +55,7 @@ client.on('message', message => {
     } else {
         if (message.content === '!bs' && bsGames.hasOwnProperty(message.author.id)) {
             message.channel.send("You're already in a game of battleship! Use `!bs stop` to stop playing.");
+						message.delete(1);
         }
     }
 	
@@ -98,7 +99,11 @@ client.on('message', message => {
 					bsGames[message.author.id].botBoard = newBoard();
 					bsGames[message.author.id].botShips = [];
 					bsGames[message.author.id].botKnowledge = {
-						hits: {},
+						hits: {
+							standing:{},
+							sunken: {}
+						},
+
 						misses: []
 					}
 	
@@ -459,13 +464,14 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
+						console.log(bsGames[message.author.id].botKnowledge.misses);
 						message.delete(1);
 
 						var letters = "abcdefghij";
 						var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 
-						if(Object.keys(bsGames[message.author.id].botKnowledge.hits == 0)){
+						if(Object.keys(bsGames[message.author.id].botKnowledge.hits).length == 0){
 							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
@@ -527,6 +533,7 @@ client.on('message', message => {
 							if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
 								// miss
 								board[simpleCoords[1]][simpleCoords[0]] = ":x:";
+								bsGames[message.author.id].botKnowledge.misses.push(coordinates);
 								output += " and miss."
 							} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
 								// hit there already
@@ -534,7 +541,7 @@ client.on('message', message => {
 							} else {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
-						
+								
 								output += " and hit!";
 							}
 
