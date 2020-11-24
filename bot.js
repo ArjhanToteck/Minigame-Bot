@@ -69,7 +69,6 @@ client.on('message', message => {
         delete bsGames[message.author.id];
         message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
       } else {
-					
 				// new board
 				if (message.content === "new board" && !bsGames[message.author.id].inGame) {
 					message.delete(1);
@@ -464,7 +463,7 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
-						console.log(bsGames[message.author.id].botKnowledge.misses);
+						console.log(bsGames[message.author.id].playerShips);
 						message.delete(1);
 
 						var letters = "abcdefghij";
@@ -484,16 +483,16 @@ client.on('message', message => {
 							var simpleCoords = coordinates;
 							var letters = "abcdefghij";
 							var numbers = "123456789";
-						
+
 							// turns letter, number or number, letter notation into number, number notation
 							if((simpleCoords + "").length == 4){
 								// contains 10
 								if(numbers.includes((simpleCoords[0] + "")[0])){
-						
+
 									// starts with number
 									simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
 								} else {
-						
+
 									// starts with letter
 									simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
 								}
@@ -541,7 +540,7 @@ client.on('message', message => {
 							} else {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
-								
+								bsGames[message.author.id].botKnowledge.hits[coordinates] = {};
 								output += " and hit!";
 							}
 
