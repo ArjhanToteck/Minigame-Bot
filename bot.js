@@ -459,7 +459,6 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
-						console.log("yeet");
 						message.delete(1);
 
 						var letters = "abcdefghij";
@@ -467,7 +466,7 @@ client.on('message', message => {
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 
 						if(Object.keys(bsGames[message.author.id].botKnowledge.hits == 0)){
-							while(!bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
+							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
 						}
@@ -546,7 +545,7 @@ client.on('message', message => {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							}
 						}
-						
+
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
 					}
 				}
