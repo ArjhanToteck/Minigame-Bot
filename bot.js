@@ -215,6 +215,7 @@ client.on('message', message => {
 						
 							}
 						}
+
 					function shuffleBotBoard(){
 							bsGames[message.author.id].botBoard = newBoard();
 							bsGames[message.author.id].botShips = [];
@@ -460,7 +461,7 @@ client.on('message', message => {
 					if (message.contents == "ok" && bsGames[message.author.id].turn == "bot") {
 						message.delete(1);
 
-						var letters = "abcdefghij";
+						/*var letters = "abcdefghij";
 						var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 
@@ -543,7 +544,9 @@ client.on('message', message => {
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							}
-						}
+						}*/
+						
+						var output = "IT IS WORKING YAY"
 						
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
 					}
@@ -1132,4 +1135,4 @@ function stringifyArray(arr, split = ""){
 }
 
 // bot login
-client.login(process.env.BOT_TOKEN); //BOT_TOKEN is the Client Secret
+client.login(process.env.BOT_TOKEN); //process.env.BOT_TOKEN is the Client Secret
