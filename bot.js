@@ -417,6 +417,7 @@ client.on('message', message => {
 												if (element.toString() === coordinates.toString()) {
 													return true;
 												}
+												console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
 											});
 											break;
 										}
