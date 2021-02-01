@@ -1,3 +1,4 @@
+<script>
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
@@ -474,6 +475,25 @@ client.on('message', message => {
 							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
+						} else if(bsGames[message.author.id].botKnowledge.hits[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1].nextFound == false){
+							var hitShip = Object.keys(bsGames[message.author.id].botKnowledge.hits);
+
+							var i = 0;
+							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
+								var directionNumber = Math.floor(Math.random() * Math.floor(1)) == 0 ? 1: -1;
+								var directionLetter = Math.floor(Math.random() * Math.floor(1)) == 0 ? 1: -1;
+
+								coordinates = [hitShip.split(",")[0] + directionNumber, letters[hitShip.split(",")[1] + directionLetter]];
+								i++;
+								
+								if(i > 5) break;
+							}
+							
+							bsGames[message.author.id].botKnowledge.hits[hitShip].nextFound = true;
+						} else {
+							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
+								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
+							}
 						}
 
 						var output = `I fire at the coordinates ${coordinates[0]}, ${coordinates[1]}`;
@@ -540,7 +560,7 @@ client.on('message', message => {
 							} else {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
-								bsGames[message.author.id].botKnowledge.hits[coordinates] = {};
+								bsGames[message.author.id].botKnowledge.hits[coordinates.toString()] = {nextFound: false};
 								output += " and hit!";
 							}
 
@@ -1140,3 +1160,4 @@ function stringifyArray(arr, split = ""){
 
 // bot login
 client.login(process.env.BOT_TOKEN); //process.env.BOT_TOKEN is the Client Secret
+</script>
