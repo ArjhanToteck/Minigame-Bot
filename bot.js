@@ -567,13 +567,13 @@ client.on('message', message => {
 					
 					// player wins
 					if(!bsGames[message.author.id].botBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_up:")){
-						delete bsGames[message.author.id];
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n You have sunken all my ships. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"));
+						delete bsGames[message.author.id];
 
 					} else if(!bsGames[message.author.id].playerBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_up:")){
 						// bot wins
-						delete bsGames[message.author.id];
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n I have sunken all your ships. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"));
+						delete bsGames[message.author.id];
 					}
 				}
 			}
