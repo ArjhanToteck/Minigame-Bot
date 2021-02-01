@@ -411,17 +411,25 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.includes(coordinates)){
+										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(coordinates)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(coordinates);
+											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
+												if (element.toString() === coordinates.toString()) {
+													return true;
+												}
+											});
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.includes(coordinates)){
+										if(bsGames[message.author.id].botShips[i].coords.toString().includes(coordinates)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(coordinates);
+											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
+												if (element.toString() === coordinates.toString()) {
+													return true;
+												}
+											});
 											break;
 										}
 									}
@@ -539,17 +547,25 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.includes(coordinates)){
+										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(coordinates)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(coordinates);
+											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
+												if (element.toString() === coordinates.toString()) {
+													return true;
+												}
+											});
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.includes(coordinates)){
+										if(bsGames[message.author.id].botShips[i].coords.toString().includes(coordinates)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(coordinates);
+											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
+												if (element.toString() === coordinates.toString()) {
+													return true;
+												}
+											});
 											break;
 										}
 									}
