@@ -418,7 +418,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip: ${aimedShip} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -431,7 +431,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip: ${aimedShip} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -555,7 +555,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip: ${aimedShip} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -568,7 +568,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip: ${aimedShip} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
