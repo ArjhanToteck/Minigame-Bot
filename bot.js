@@ -415,7 +415,7 @@ client.on('message', message => {
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											console.log(`simpleCoords: ${simpleCoords} coords: ${aimedShip.coords}`);
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simpleCoords)) {
 													return true;
 												}
 											});
@@ -428,7 +428,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simpleCoords)) {
 													return true;
 												}
 											});
@@ -455,6 +455,7 @@ client.on('message', message => {
 									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								}
 								
+								console.log("hit");
 								aimedShip.hits[aimedShipPoint] = true;
 								
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
@@ -552,7 +553,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simpleCoords)) {
 													return true;
 												}
 											});
@@ -565,7 +566,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simpleCoords)) {
 													return true;
 												}
 											});
@@ -587,6 +588,7 @@ client.on('message', message => {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								bsGames[message.author.id].botKnowledge.hits[coordinates.toString()] = {nextFound: false};
+								console.log("hit");
 								aimedShip.hits[aimedShipPoint] = true;
 								output += " and hit!";
 							}
