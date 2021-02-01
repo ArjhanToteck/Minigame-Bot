@@ -411,17 +411,17 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.includes(simpleCoords)){
+										if(bsGames[message.author.id].playerShips[i].coords.includes(coordinates)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = i;
+											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(coordinates);
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.includes(simpleCoords)){
+										if(bsGames[message.author.id].botShips[i].coords.includes(coordinates)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = i;
+											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(coordinates);
 											break;
 										}
 									}
@@ -539,17 +539,17 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.includes(simpleCoords)){
+										if(bsGames[message.author.id].playerShips[i].coords.includes(coordinates)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = i;
+											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(coordinates);
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.includes(simpleCoords)){
+										if(bsGames[message.author.id].botShips[i].coords.includes(coordinates)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = i;
+											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(coordinates);
 											break;
 										}
 									}
