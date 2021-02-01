@@ -415,7 +415,7 @@ client.on('message', message => {
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											console.log(`simpleCoords: ${simpleCoords} coords: ${aimedShip.coords}`);
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (ArraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simplecoords)) {
 													return true;
 												}
 											});
@@ -428,7 +428,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (ArraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simplecoords)) {
 													return true;
 												}
 											});
@@ -552,7 +552,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (ArraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simplecoords)) {
 													return true;
 												}
 											});
@@ -565,7 +565,7 @@ client.on('message', message => {
 										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (ArraysEqual(element, simplecoords)) {
+												if (arraysEqual(element, simplecoords)) {
 													return true;
 												}
 											});
