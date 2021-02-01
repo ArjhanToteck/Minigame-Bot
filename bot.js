@@ -444,6 +444,8 @@ client.on('message', message => {
 									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								}
 								
+								aimedShip.hits[aimedShipPoint] = true;
+								
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 						
 								output += " and hit!";
@@ -454,6 +456,11 @@ client.on('message', message => {
 								output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+							}
+							
+							// sunk battleship
+							if(aimedShip != -1 && !aimedShip.hits.includes(true)){
+								output += " A battleship sank."
 							}
 						}
 
@@ -485,7 +492,7 @@ client.on('message', message => {
 								coordinates = [hitShip.split(",")[0] + directionNumber, letters[hitShip.split(",")[1] + directionLetter]];
 								i++;
 								
-								if(i > 5) break;
+								if(i > 5) coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
 							
 							bsGames[message.author.id].botKnowledge.hits[hitShip].nextFound = true;
@@ -560,6 +567,7 @@ client.on('message', message => {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								bsGames[message.author.id].botKnowledge.hits[coordinates.toString()] = {nextFound: false};
+								aimedShip.hits[aimedShipPoint] = true;
 								output += " and hit!";
 							}
 
@@ -568,6 +576,11 @@ client.on('message', message => {
 								output += "\n \n Your board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
+							}
+							
+							// sunk battleship
+							if(aimedShip != -1 && !aimedShip.hits.includes(true)){
+								output += " A battleship sank."
 							}
 						}
 
