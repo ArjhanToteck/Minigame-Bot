@@ -413,6 +413,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
+											console.log(`simpleCoords: ${simpleCoords} coords: ${aimedShip.coords}`);
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
 												if (ArraysEqual(element, simplecoords)) {
 													return true;
@@ -431,14 +432,12 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${bsGames[message.author.id].playerShips[i].coords}`);
+											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
 								}
 							
-							console.log(`simpleCoords: ${simpleCoords} coords: ${aimedShipPoint}`);
-						
 							if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
 								// miss
 								if(board == bsGames[message.author.id].botBoard){
