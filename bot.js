@@ -411,33 +411,22 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
+										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											console.log(`simpleCoords: ${simpleCoords} coords: ${aimedShip.coords}`);
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simpleCoords)) {
-													return true;
-												}
-											});
-											console.log(`aimedShip.coords: ${aimedShip.coords}, simpleCoords: ${simpleCoords} aimedShipPoint: ${aimedShipPoint}`);
+											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
+										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simpleCoords)) {
-													return true;
-												}
-											});
-											console.log(`aimedShip.coords: ${aimedShip.coords}, simpleCoords: ${simpleCoords} aimedShipPoint: ${aimedShipPoint}`);
+											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
 											break;
 										}
 									}
 								}
-							
+						
 							if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
 								// miss
 								if(board == bsGames[message.author.id].botBoard){
@@ -455,9 +444,6 @@ client.on('message', message => {
 									bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 								}
 								
-								console.log("hit");
-								aimedShip.hits[aimedShipPoint] = true;
-								
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
 						
 								output += " and hit!";
@@ -469,11 +455,6 @@ client.on('message', message => {
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
 							}
-							
-							// sunk battleship
-							if(aimedShip != -1 && !aimedShip.hits.includes(false)){
-								output += " A battleship sank."
-							}
 						}
 
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
@@ -482,6 +463,7 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
+						console.log(bsGames[message.author.id].playerShips[0].coords);
 						message.delete(1);
 
 						var letters = "abcdefghij";
@@ -489,25 +471,6 @@ client.on('message', message => {
 						var coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 
 						if(Object.keys(bsGames[message.author.id].botKnowledge.hits).length == 0){
-							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
-								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
-							}
-						} else if(bsGames[message.author.id].botKnowledge.hits[Object.keys(bsGames[message.author.id].botKnowledge.hits)[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1]].nextFound == false){
-							var hitShip = Object.keys(bsGames[message.author.id].botKnowledge.hits)[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1];
-
-							var i = 0;
-							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
-								var directionNumber = Math.floor(Math.random() * Math.floor(1)) == 0 ? 1: -1;
-								var directionLetter = Math.floor(Math.random() * Math.floor(1)) == 0 ? 1: -1;
-
-								coordinates = [hitShip.split(",")[0] + directionNumber, letters[hitShip.split(",")[1] + directionLetter]];
-								i++;
-								
-								if(i > 5) coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
-							}
-							
-							bsGames[message.author.id].botKnowledge.hits[hitShip].nextFound = true;
-						} else {
 							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
@@ -550,27 +513,17 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
+										if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simpleCoords)) {
-													return true;
-												}
-											});
-											console.log(`aimedShip.coords: ${aimedShip.coords}, simpleCoords: ${simpleCoords} aimedShipPoint: ${aimedShipPoint}`);
+											aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords);
 											break;
 										}
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
+										if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (arraysEqual(element, simpleCoords)) {
-													return true;
-												}
-											});
-											console.log(`aimedShip.coords: ${aimedShip.coords}, simpleCoords: ${simpleCoords} aimedShipPoint: ${aimedShipPoint}`);
+											aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords);
 											break;
 										}
 									}
@@ -587,9 +540,7 @@ client.on('message', message => {
 							} else {
 								// hit
 								board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
-								bsGames[message.author.id].botKnowledge.hits[coordinates.toString()] = {nextFound: false};
-								console.log("hit");
-								aimedShip.hits[aimedShipPoint] = true;
+								bsGames[message.author.id].botKnowledge.hits[coordinates] = {};
 								output += " and hit!";
 							}
 
@@ -598,11 +549,6 @@ client.on('message', message => {
 								output += "\n \n Your board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 							} else {
 								output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
-							}
-							
-							// sunk battleship
-							if(aimedShip != -1 && !aimedShip.hits.includes(true)){
-								output += " A battleship sank."
 							}
 						}
 
@@ -1190,18 +1136,6 @@ function stringifyArray(arr, split = ""){
 	}
 
 	return output;
-}
-
-// function to check if arrays match
-function arraysEqual(a, b) {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
-
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
 }
 
 // bot login
