@@ -411,10 +411,10 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(coordinates)){
+										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (element.toString() === coordinates.toString()) {
+												if (element.toString() === simpleCoords.toString()) {
 													return true;
 												}
 												console.log(`aimedShip: ${aimedship} aimedShipPoint: ${aimedShipPoint}`);
@@ -424,10 +424,10 @@ client.on('message', message => {
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.toString().includes(coordinates)){
+										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (element.toString() === coordinates.toString()) {
+												if (element.toString() === simpleCoords.toString()) {
 													return true;
 												}
 											});
@@ -479,7 +479,6 @@ client.on('message', message => {
 
 					// ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
-						console.log(bsGames[message.author.id].playerShips[0].coords);
 						message.delete(1);
 
 						var letters = "abcdefghij";
@@ -548,10 +547,10 @@ client.on('message', message => {
 							var aimedShipPoint = -1;
 							if(board == bsGames[message.author.id].playerBoard){
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(coordinates)){
+										if(bsGames[message.author.id].playerShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
 											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.findIndex((element, index) => {
-												if (element.toString() === coordinates.toString()) {
+												if (element.toString() === simpleCoords.toString()) {
 													return true;
 												}
 											});
@@ -560,10 +559,10 @@ client.on('message', message => {
 									}
 								} else {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-										if(bsGames[message.author.id].botShips[i].coords.toString().includes(coordinates)){
+										if(bsGames[message.author.id].botShips[i].coords.toString().includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
 											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.findIndex((element, index) => {
-												if (element.toString() === coordinates.toString()) {
+												if (element.toString() === simpleCoords.toString()) {
 													return true;
 												}
 											});
