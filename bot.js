@@ -353,7 +353,7 @@ client.on('message', message => {
 	
 					// player turn
 					if (message.content == "ok"){
-						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Your board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].playerBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
+						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n My board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
 					} else if(bsGames[message.author.id].turn == "player"){
 						// (number)(letter)
 						if ((message.content.length == 2 || message.content.length == 3)) {
