@@ -350,122 +350,125 @@ client.on('message', message => {
 	
 				// if game started
 				if(bsGames[message.author.id].inGame){
-	
+					
 					// player turn
-					if (message.content == "ok" && bsGames[message.author.id].turn == "player"){
-						message.delete(1);
-						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n My board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
-					} else {
-						// (number)(letter)
-						if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
+					if(bsGames[message.author.id].turn == "player"){
+						if (message.content == "ok"){
 							message.delete(1);
-
-							var coordinates = ["", ""];
-							var numbers = "1234567890";
-							var letters = "abcdefghij"
+							bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n My board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
+						} else {
+							// (number)(letter)
+							if ((message.content.length == 2 || message.content.length == 3)) {
+								message.delete(1);
 	
-							for(var i = 0; i < message.content.length; i++){
-								if(numbers.includes(message.content[i])){
-									coordinates[0] += message.content[i];
-								} else {
-									coordinates[1] += message.content[i].toLowerCase();
-								}
-							}
-	
-							coordinates[0] = parseInt(coordinates[0], 10);
-						
-							var invalid = coordinates[0] > 10 || !letters.includes(coordinates[1]) || coordinates[1].length > 1;
-	
-							var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid.` +  "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
-
-							if(!invalid){
-								attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
-							}
-
-							function attackCoordinates(board, coordinates){
-								var simpleCoords = coordinates;
-								var letters = "abcdefghij";
-								var numbers = "123456789";
-						
-								// turns letter, number or number, letter notation into number, number notation
-								if((simpleCoords + "").length == 4){
-									// contains 10
-									if(numbers.includes((simpleCoords[0] + "")[0])){
-						
-										// starts with number
-										simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+								var coordinates = ["", ""];
+								var numbers = "1234567890";
+								var letters = "abcdefghij"
+		
+								for(var i = 0; i < message.content.length; i++){
+									if(numbers.includes(message.content[i])){
+										coordinates[0] += message.content[i];
 									} else {
-						
-										// starts with letter
-										simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
-									}
-								} else {
-									// doesn't contain 10
-									if(numbers.includes(simpleCoords[0])){
-						
-										// starts with number
-										simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
-									} else {
-						
-										// starts with letter
-										simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
+										coordinates[1] += message.content[i].toLowerCase();
 									}
 								}
+		
+								coordinates[0] = parseInt(coordinates[0], 10);
 							
-								var aimedShip = -1;
-								var aimedShipPoint = -1;
-								if(board == bsGames[message.author.id].playerBoard){
-										for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
-											if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
-												aimedShip = bsGames[message.author.id].playerShips[i];
-												aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
-												break;
-											}
+								var invalid = coordinates[0] > 10 || !letters.includes(coordinates[1]) || coordinates[1].length > 1;
+		
+								var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid.` +  "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
+	
+								if(!invalid){
+									attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
+								}
+	
+								function attackCoordinates(board, coordinates){
+									var simpleCoords = coordinates;
+									var letters = "abcdefghij";
+									var numbers = "123456789";
+							
+									// turns letter, number or number, letter notation into number, number notation
+									if((simpleCoords + "").length == 4){
+										// contains 10
+										if(numbers.includes((simpleCoords[0] + "")[0])){
+							
+											// starts with number
+											simpleCoords = [10, letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+										} else {
+							
+											// starts with letter
+											simpleCoords = [10, letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
 										}
 									} else {
-										for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
-											if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
-												aimedShip = bsGames[message.author.id].botShips[i];
-												aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
-												break;
-											}
+										// doesn't contain 10
+										if(numbers.includes(simpleCoords[0])){
+							
+											// starts with number
+											simpleCoords = [simpleCoords[0], letters.indexOf(simpleCoords[1].toLowerCase()) + 1];
+										} else {
+							
+											// starts with letter
+											simpleCoords = [simpleCoords[1], letters.indexOf(simpleCoords[0].toLowerCase()) + 1];
 										}
 									}
-						
-								if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
-									// miss
-									if(board == bsGames[message.author.id].botBoard){
-										bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":x:";
-									}
 								
-									board[simpleCoords[1]][simpleCoords[0]] = ":x:";
-									output += " and miss."
-								} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
-									// hit there already
-									output = "You can't fire there because you already did before!";
-								} else {
-									// hit
-									if(board == bsGames[message.author.id].botBoard){
-										bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
-									}
-								
-									board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
+									var aimedShip = -1;
+									var aimedShipPoint = -1;
+									if(board == bsGames[message.author.id].playerBoard){
+											for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
+												if((bsGames[message.author.id].playerShips[i].coords + "").includes(simpleCoords)){
+													aimedShip = bsGames[message.author.id].playerShips[i];
+													aimedShipPoint = (bsGames[message.author.id].playerShips[i].coords + "").indexOf(simpleCoords)
+													break;
+												}
+											}
+										} else {
+											for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
+												if((bsGames[message.author.id].botShips[i].coords + "").includes(simpleCoords)){
+													aimedShip = bsGames[message.author.id].botShips[i];
+													aimedShipPoint = (bsGames[message.author.id].botShips[i].coords + "").indexOf(simpleCoords)
+													break;
+												}
+											}
+										}
 							
-									output += " and hit!";
+									if(board[simpleCoords[1]][simpleCoords[0]] == bsGames[message.author.id].color){
+										// miss
+										if(board == bsGames[message.author.id].botBoard){
+											bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":x:";
+										}
+									
+										board[simpleCoords[1]][simpleCoords[0]] = ":x:";
+										output += " and miss."
+									} else if(board[simpleCoords[1]][simpleCoords[0]] == ":x:" ||  board[simpleCoords[1]][simpleCoords[0]] == ":white_check_mark:"){
+										// hit there already
+										output = "You can't fire there because you already did before!";
+									} else {
+										// hit
+										if(board == bsGames[message.author.id].botBoard){
+											bsGames[message.author.id].botPreview[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
+										}
+									
+										board[simpleCoords[1]][simpleCoords[0]] = ":white_check_mark:";
+								
+										output += " and hit!";
+									}
+	
+									if(output != "You can't fire there because you already did before!"){
+										bsGames[message.author.id].turn = "bot";
+										output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
+									} else {
+										output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
+									}
 								}
-
-								if(output != "You can't fire there because you already did before!"){
-									bsGames[message.author.id].turn = "bot";
-									output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
-								} else {
-									output += "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."
-								}
+	
+								bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
+	
 							}
-
-							bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
-
 						}
 					}
+					
 					
 					// bot turn ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
@@ -566,12 +569,12 @@ client.on('message', message => {
 					// player wins
 					if(!bsGames[message.author.id].botBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_up:")){
 						delete bsGames[message.author.id];
-						message.channel.send(generateEmbed("Battleship", "\n \n You have sunken all my ships. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"));
+						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n You have sunken all my ships. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"));
 
 					} else if(!bsGames[message.author.id].playerBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_up:")){
 						// bot wins
 						delete bsGames[message.author.id];
-						message.channel.send(generateEmbed("Battleship", "\n \n I have sunken all your ships. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"));
+						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n I have sunken all your ships. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"));
 					}
 				}
 			}
