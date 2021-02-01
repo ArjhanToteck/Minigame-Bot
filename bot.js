@@ -352,12 +352,12 @@ client.on('message', message => {
 				if(bsGames[message.author.id].inGame){
 	
 					// player turn
-					if (message.content == "ok"){
+					if (message.content == "ok" && bsGames[message.author.id].turn == "player"){
 						message.delete(1);
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n My board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
-					} else if(bsGames[message.author.id].turn == "player"){
+					} else {
 						// (number)(letter)
-						if ((message.content.length == 2 || message.content.length == 3)) {
+						if ((message.content.length == 2 || message.content.length == 3) && bsGames[message.author.id].turn == "player") {
 							message.delete(1);
 
 							var coordinates = ["", ""];
@@ -467,7 +467,7 @@ client.on('message', message => {
 						}
 					}
 					
-					// ok
+					// bot turn ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
 						console.log(bsGames[message.author.id].playerShips[0].coords);
 						message.delete(1);
@@ -559,6 +559,19 @@ client.on('message', message => {
 						}
 
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", output));
+					}
+					
+					// winning conditions
+					
+					// player wins
+					if(!bsGames[message.author.id].botBoard.flat(Infinity).findIndex((element) => element != bsGames[message.author.id].botShips.color && element != ":x:" && element != ":white_check_mark:")){
+						delete bsGames[message.author.id];
+						message.channel.send(generateEmbed("Battleship", "\n \n You have sunken all my ships. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"));
+
+					} else if(!bsGames[message.author.id].playerBoard.flat(Infinity).findIndex((element) => element != bsGames[message.author.id].playerShips.color && element != ":x:" && element != ":white_check_mark:")){
+						// bot wins
+						delete bsGames[message.author.id];
+						message.channel.send(generateEmbed("Battleship", "\n \n I have sunken all your ships. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"));
 					}
 				}
 			}
