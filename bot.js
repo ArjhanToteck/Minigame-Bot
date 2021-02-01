@@ -352,12 +352,12 @@ client.on('message', message => {
 					if(bsGames[message.author.id].turn == "player"){
 						if (message.content == "ok"){
 							message.delete(1);
-							bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Previre of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
+							bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Preview of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
 						} else {
 							// (number)(letter)
 							if (message.content == "ok"){
 								message.delete(1);
-								bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Previre of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botBoard) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
+								bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Preview of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
 							} else if ((message.content.length == 2 || message.content.length == 3)) {
 								message.delete(1);
 	
