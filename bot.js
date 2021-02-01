@@ -1,4 +1,3 @@
-<script>
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
@@ -1160,4 +1159,3 @@ function stringifyArray(arr, split = ""){
 
 // bot login
 client.login(process.env.BOT_TOKEN); //process.env.BOT_TOKEN is the Client Secret
-</script>
