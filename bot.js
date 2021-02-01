@@ -419,7 +419,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip.coords: ${aimedShip.coords} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -432,7 +432,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip.coords: ${aimedShip.coords} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -557,7 +557,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip.coords: ${aimedShip.coords} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
@@ -570,7 +570,7 @@ client.on('message', message => {
 													return true;
 												}
 											});
-											console.log(`aimedShip.hits: ${aimedShip.hits} aimedShipPoint: ${aimedShipPoint}`);
+											console.log(`aimedShip.coords: ${aimedShip.coords} aimedShipPoint: ${aimedShipPoint}`);
 											break;
 										}
 									}
