@@ -413,7 +413,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if(bsGames[message.author.id].playerShips[i].coords.includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(simpleCoords)
+											aimedShipPoint = i;
 											break;
 										}
 									}
@@ -421,7 +421,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
 										if(bsGames[message.author.id].botShips[i].coords.includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(simpleCoords);
+											aimedShipPoint = i;
 											break;
 										}
 									}
@@ -541,7 +541,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].playerShips.length; i++){
 										if(bsGames[message.author.id].playerShips[i].coords.includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].playerShips[i];
-											aimedShipPoint = bsGames[message.author.id].playerShips[i].coords.indexOf(simpleCoords);
+											aimedShipPoint = i;
 											break;
 										}
 									}
@@ -549,7 +549,7 @@ client.on('message', message => {
 									for(var i = 0; i < bsGames[message.author.id].botShips.length; i++){
 										if(bsGames[message.author.id].botShips[i].coords.includes(simpleCoords)){
 											aimedShip = bsGames[message.author.id].botShips[i];
-											aimedShipPoint = bsGames[message.author.id].botShips[i].coords.indexOf(simpleCoords);
+											aimedShipPoint = i;
 											break;
 										}
 									}
