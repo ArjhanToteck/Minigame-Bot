@@ -475,7 +475,7 @@ client.on('message', message => {
 								coordinates = [(Math.floor(Math.random() * Math.floor(10)) + 1), letters[Math.floor(Math.random() * Math.floor(letters.length))]];
 							}
 						} else if(bsGames[message.author.id].botKnowledge.hits[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1].nextFound == false){
-							var hitShip = bsGames[message.author.id].botKnowledge.hits[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1;
+							var hitShip = bsGames[message.author.id].botKnowledge.hits[Object.keys(bsGames[message.author.id].botKnowledge.hits).length - 1];
 
 							var i = 0;
 							while(bsGames[message.author.id].botKnowledge.misses.includes(coordinates)){
