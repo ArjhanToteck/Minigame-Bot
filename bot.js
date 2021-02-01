@@ -564,11 +564,11 @@ client.on('message', message => {
 					// winning conditions
 					
 					// player wins
-					if(!bsGames[message.author.id].botBoard.flat(Infinity).findIndex((element) => element != bsGames[message.author.id].botShips.color && element != ":x:" && element != ":white_check_mark:")){
+					if(!bsGames[message.author.id].botBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].botBoard.flat(Infinity).includes(":arrow_double_up:")){
 						delete bsGames[message.author.id];
 						message.channel.send(generateEmbed("Battleship", "\n \n You have sunken all my ships. \n \n :tada: **You win!** :tada: \n Thank you for playing, " + sender + "!"));
 
-					} else if(!bsGames[message.author.id].playerBoard.flat(Infinity).findIndex((element) => element != bsGames[message.author.id].playerShips.color && element != ":x:" && element != ":white_check_mark:")){
+					} else if(!bsGames[message.author.id].playerBoard.flat(Infinity).includes(":fast_forward:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_down:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":rewind:") && !bsGames[message.author.id].playerBoard.flat(Infinity).includes(":arrow_double_up:")){
 						// bot wins
 						delete bsGames[message.author.id];
 						message.channel.send(generateEmbed("Battleship", "\n \n I have sunken all your ships. \n \n :tada: **I win!** :tada: \n Thank you for playing, " + sender + "!"));
