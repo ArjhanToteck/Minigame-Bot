@@ -468,7 +468,7 @@ client.on('message', message => {
 							}
 							
 							// sunk battleship
-							if(aimedShip != -1 && !aimedShip.hits.includes(true)){
+							if(aimedShip != -1 && !aimedShip.hits.includes(false)){
 								output += " A battleship sank."
 							}
 						}
