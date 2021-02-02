@@ -27,24 +27,7 @@ client.on('message', message => {
 		// !help
 		//___________________________________________________________
 		if (message.content == "!help") {
-			var helpTable = new Discord.RichEmbed()
-        .setColor('#b00000')
-        .setTitle("Help")
-        .setDescription("List of commands:")
-				.addFields(
-					{ name: '`!bs`', value: 'Start a game of battleship'},
-					{ name: '`!bs stop`', value: 'Stop a game of battleship.'},
-					{ name: '`!bj`', value: 'Start a game of blackjack.'},
-					{ name: '`!bj stop`', value: 'Stop a game of blackjack.'},
-					{ name: '`!help`', value: 'Shows this list of commands.'},
-					{ name: '`!rps`', value: 'Starts a game of rock, paper, scissors.'},
-					{ name: '`!rps stop`', value: 'Stops a game of rock, paper, scissors.'},
-					{ name: '`!war`', value: 'Starts a game of war.'},
-					{ name: '`!war stop`', value: 'Stops a game of war.'}
-				)
-        .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png')
-
-			message.channel.send(generateEmbed("Help", "This will have all of the commands and stuff."));
+			message.channel.send(generateEmbed("Help", "View a list of the commands and more [here](https://arjhantoteck.neocities.org/minigame%20bot.html)."));
 		}
 
 		// battleship
