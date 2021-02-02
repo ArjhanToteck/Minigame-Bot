@@ -31,7 +31,6 @@ client.on('message', message => {
         .setColor('#b00000')
         .setTitle("Help")
         .setDescription("List of commands:")
-        .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png')
 				.addFields(
 					{ name: '`!bs`', value: 'Start a game of battleship'},
 					{ name: '`!bs stop`', value: 'Stop a game of battleship.'},
@@ -41,9 +40,10 @@ client.on('message', message => {
 					{ name: '`!rps`', value: 'Starts a game of rock, paper, scissors.'},
 					{ name: '`!rps stop`', value: 'Stops a game of rock, paper, scissors.'},
 					{ name: '`!war`', value: 'Starts a game of war.'},
-					{ name: '`!war stop`', value: 'Stops a game of war.'},
-				);
-			
+					{ name: '`!war stop`', value: 'Stops a game of war.'}
+				)
+        .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png')
+
 			message.channel.send(generateEmbed("Help", "This will have all of the commands and stuff."));
 		}
 
