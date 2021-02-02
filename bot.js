@@ -1105,7 +1105,7 @@ const varToString = varObj => Object.keys(varObj)[0];
 // function to generate embeds
 function generateEmbed(title, desc, imageSrc = undefined) {
     const newEmbed = new Discord.RichEmbed()
-        .setColor('#b00000')
+        .setColor('#212121')
         .setTitle(title)
         .setDescription(desc)
         .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png');
