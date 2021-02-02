@@ -373,7 +373,7 @@ client.on('message', message => {
 							
 								var invalid = coordinates[0] > 10 || !letters.includes(coordinates[1]) || coordinates[1].length > 1;
 		
-								var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid.` +  "\n \n Try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
+								var output = (!invalid) ? `You fire at the coordinates ${coordinates[0]}, ${coordinates[1]}` : `The coordinates ${coordinates[0]}, ${coordinates[1]}  are invalid.` +  "\n \n Type `ok` to contrinue and then try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 	
 								if(!invalid){
 									attackCoordinates(bsGames[message.author.id].botBoard, coordinates);
@@ -456,7 +456,7 @@ client.on('message', message => {
 										output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
 									} else {
 										if(!message.content == "ok"){
-											output += "\n \n Type `ok` to contrinue and then try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";	
+											output += "\n \n Type `ok` to contrinue and then try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 										} else {
 											bsGames[message.author.id].turn = "bot";
 										}
