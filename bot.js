@@ -25,7 +25,7 @@ client.on('message', message => {
     var sender = '<@!' + message.author.id + '>';
 
     if (message.content === 'test') {
-        message.delete(1);
+        message.delete(0);
         message.channel.send("Working!");
     }
 
@@ -48,11 +48,11 @@ client.on('message', message => {
             bsGames[message.author.id].editable = msg;
         })
 
-        message.delete(1);
+        message.delete(0);
     } else {
         if (message.content === '!bs' && bsGames.hasOwnProperty(message.author.id)) {
             message.channel.send("You're already in a game of battleship! Use `!bs stop` to stop playing.");
-						message.delete(1);
+						message.delete(0);
         }
     }
 	
@@ -61,14 +61,14 @@ client.on('message', message => {
 		if (bsGames.hasOwnProperty(message.author.id)) {
 			// !bs stop
       if (message.content === "!bs stop") {
-				message.delete(1);
+				message.delete(0);
 
         delete bsGames[message.author.id];
         message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
       } else {
 				// new board
 				if (message.content === "new board" && !bsGames[message.author.id].inGame) {
-					message.delete(1);
+					message.delete(0);
 					var color = ":blue_square:";
 					bsGames[message.author.id].color = color;
 	
@@ -338,7 +338,7 @@ client.on('message', message => {
 	
 				// start
 				if (message.content === "start" && !bsGames[message.author.id].inGame) {
-					message.delete(1);
+					message.delete(0);
 		
 					bsGames[message.author.id].inGame = true;
 					bsGames[message.author.id].turn = "player";
@@ -351,11 +351,11 @@ client.on('message', message => {
 					// player turn
 					if(bsGames[message.author.id].turn == "player"){
 						if (message.content == "ok"){
-							message.delete(1);
+							message.delete(0);
 							bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Preview of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
 						} else {
 							if ((message.content.length == 2 || message.content.length == 3) && message.content != "ok") {
-								message.delete(1);
+								message.delete(0);
 	
 								var coordinates = ["", ""];
 								var numbers = "1234567890";
@@ -472,7 +472,7 @@ client.on('message', message => {
 					
 					// bot turn ok
 					if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
-						message.delete(1);
+						message.delete(0);
 
 						var letters = "abcdefghij";
 						var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -612,7 +612,7 @@ client.on('message', message => {
         message.channel.send(generateEmbed("Blackjack", 'Starting a game of blackjack with ' + sender + '... \n \n The cards are now dealt. You have a ' + deckPlayerCards[0] + ' (worth ' + valuePlayerCards[0] + ' points) and a ' + deckPlayerCards[1] + ' (worth ' + valuePlayerCards[1]  + ' points). \n I have a ' + deckBotCards[0] + " (worth " + valueBotCards[0] + " points) and an unknown card. \n \n Use `hit me` or `stand` to proceed.")).then((msg) => {
             bjGames[message.author.id].editable = msg;
         })
-        message.delete(1);
+        message.delete(0);
     } else {
         if (message.content === '!bj' && bjGames.hasOwnProperty(message.author.id)) {
             message.channel.send("You're already in a game of blackjack! Use `!bj stop` to stop playing.");
@@ -625,7 +625,7 @@ client.on('message', message => {
 
         // !bj stop
         if (message.content === "!bj stop") {
-						message.delete(1);
+						message.delete(0);
 					
             delete bjGames[message.author.id];
             message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
@@ -633,7 +633,7 @@ client.on('message', message => {
 			
 				// hit me
 				if (message.content === "hit me") {
-						message.delete(1);
+						message.delete(0);
 						
 						var newCard = bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1);
 						newCard = newCard.flat(2);
@@ -716,7 +716,7 @@ client.on('message', message => {
 
 				// stand
 				if (message.content === "stand") {
-					message.delete(1);
+					message.delete(0);
 					
 					// assigns names and values to cards
 
@@ -890,7 +890,7 @@ client.on('message', message => {
         message.channel.send(generateEmbed("Rock, Paper, Scissors", 'Starting a game of rock, paper, scissors with ' + sender + '... \n \n Use `r`, `p`, or `s` to choose rock, paper, or scissors.')).then((msg) => {
             rpsGames[message.author.id].editable = msg;
         })
-        message.delete(1);
+        message.delete(0);
     } else {
         if (message.content === '!rps' && rpsGames.hasOwnProperty(message.author.id)) {
             message.channel.send("You're already in a game of rock, paper, scissors! Use `!rps stop` to stop playing.");
@@ -903,7 +903,7 @@ client.on('message', message => {
 
         // !rps stop
         if (message.content === "!rps stop") {
-						message.delete(1);
+						message.delete(0);
 					
             delete rpsGames[message.author.id];
             message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
@@ -921,7 +921,7 @@ client.on('message', message => {
 						var fullBotAttack = fullAttacks[abbAttacks.indexOf(botAttack)];
 						var fullPlayerAttack = fullAttacks[abbAttacks.indexOf(playerAttack)];
 					
-            message.delete(1);
+            message.delete(0);
 
             //User wins the round
             if ((botAttack == "r" && playerAttack == "p") || (botAttack == "p" && playerAttack == "s") || (botAttack == "s" && playerAttack == "r")) {
@@ -962,7 +962,7 @@ client.on('message', message => {
 				
 				
 
-        message.delete(1);
+        message.delete(0);
 
         // generates deck and draws random card for both players
         var deckNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -988,7 +988,7 @@ client.on('message', message => {
 
         // !war stop
         if (message.content === "!war stop") {
-						message.delete(1);
+						message.delete(0);
 					
             delete warGames[message.author.id];
             message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
@@ -997,7 +997,7 @@ client.on('message', message => {
         // go
         if (message.content === "go") {
 
-            message.delete(1);
+            message.delete(0);
 
             // gets the cards that were used
             var deckCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
