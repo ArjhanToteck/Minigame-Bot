@@ -1108,7 +1108,7 @@ function generateEmbed(title, desc, imageSrc = undefined) {
         .setColor('#b00000')
         .setTitle(title)
         .setDescription(desc)
-        .setFooter('Created by [ArjhanToteck](https://arjhantoteck.neocities.org/)', 'https://arjhantoteck.neocities.org/favicon.png');
+        .setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png');
 	
 		if(!!imageSrc){
 			newEmbed.setImage(imageSrc);
