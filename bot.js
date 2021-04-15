@@ -30,6 +30,19 @@ client.on('message', message => {
 		message.channel.send(generateEmbed("Help", "View a list of the commands and more [here](https://arjhantoteck.neocities.org/minigame%20bot.html)."));
 	}
 
+	// hello there
+	//___________________________________________________________
+	if (message.content.toLowerCase().includes("hello there")) {
+		message.channel.send("General Kenobi.");
+	}
+	
+
+	// 69
+	//___________________________________________________________
+	if (message.content.toLowerCase().includes("69")) {
+		message.channel.send("69? Nice.");
+	}
+
 	// battleship
 	//___________________________________________________________
 
