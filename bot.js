@@ -35,11 +35,10 @@ client.on('message', message => {
 	if (message.content.toLowerCase().includes("hello there")) {
 		message.channel.send("General Kenobi.");
 	}
-	
 
 	// 69
 	//___________________________________________________________
-	if (message.content.toLowerCase().includes("69")) {
+	if (message.content.includes("69")) {
 		message.channel.send("69? Nice.");
 	}
 
