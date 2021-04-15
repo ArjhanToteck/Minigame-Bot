@@ -38,7 +38,7 @@ client.on('message', message => {
 
 	// 69
 	//___________________________________________________________
-	if (message.content.includes("69")) {
+	if ((message.content.includes("69")  || message.content.includes("sixty-nine") || message.content.includes("sixty nine")) && !(message.author.id == client.user.id && message.content == "69? Nice.")) {
 		message.channel.send("69? Nice.");
 	}
 
