@@ -27,7 +27,7 @@ client.on('message', message => {
 	// !help
 	//___________________________________________________________
 	if (message.content == "!help") {
-		message.channel.send(generateEmbed("Help", "View a list of the commands and more [here](https://arjhantoteck.neocities.org/minigame%20bot.html)."));
+		message.channel.send(generateEmbed("Help", "View a list of the commands and more [here](https://arjhantoteck.vercel.app/minigame%20bot.html)."));
 	}
 
 	// hello there
