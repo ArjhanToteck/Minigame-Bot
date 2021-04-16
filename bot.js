@@ -32,7 +32,7 @@ client.on('message', message => {
 
 	// hello there
 	//___________________________________________________________
-	if (message.content.toLowerCase().includes("hello there")) {
+	if (message.content.toLowerCase() == "hello there" || message.content.toLowerCase() == "hello there.") {
 		message.channel.send("General Kenobi.");
 	}
 
