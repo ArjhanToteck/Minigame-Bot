@@ -4,3 +4,5 @@ This is a very simple Discord bot written in Discord.js. I wrote this a while ag
 # 2021 Update
 The bot somehow got added to enough servers to get verified. Notice the checkmark next to "BOT." Very cool.
 ![Epic checkmark](verified.PNG)
+
+Discord released some new stuff to their API such as buttons and slash commands, but I probably won't update this bot for a while. I've got better stuff to do.
