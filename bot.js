@@ -1,26 +1,6 @@
 const { Client, Intents, MessageEmbed } = require('discord.js');
-const http = require("http");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-
-
-// opens http server
-let server = http.createServer(function(req, res) {
-	const headers = {
-		"Access-Control-Allow-Origin": "arjhantoteck.vercel.app",
-		"Content-Type": "text/plain"
-	};
-
-	res.writeHead(200, headers);
-	res.end("Placeholder, lmao");
-});
-
-server.listen(8443);
-console.log("Server running on port 8443");
-
-client.on("ready", () =>{
-    console.log(`Logged in as ${client.user.tag}!`);
-});
 
 var bsGames = {}; // games for battleship
 var bjGames = {}; // games for blackjack
