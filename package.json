@@ -1,47 +1,45 @@
 {
 
-  "name": "MinigameBot",
-  
-  "author": "ArjhanToteck",
-  
-  "license": "MIT",
+	"name": "MinigameBot",
 
-  "description": "A bot that plays minigames written in JavaScript by ArjhanToteck.",
+	"author": "ArjhanToteck",
 
-  "version": "1.0.0",
+	"license": "MIT",
 
-  "main": "bot.js",
-  
-  "homepage": "https://arjhantoteck.neocities.org/minigame%20bot.html",
-  
-  "repository": {
+	"description": "A bot that plays minigames written in JavaScript by ArjhanToteck.",
+
+	"version": "1.0.0",
+
+	"main": "bot.js",
+
+	"homepage": "https://arjhantoteck.vercel.app/minigame%20bot.html",
+
+	"repository": {
+
+		"type": "git",
+
+		"url": "git+https://github.com/ArjhanToteck/minigame-bot.git"
+
+	},
+
+	"engines": {
+
+		"node": "12.14.1",
+
+		"npm": "6.13.4"
+
+	},
+
+	"scripts": {
+
+		"start": "node bot.js"
+
+	},
+
+	"dependencies": {
+
+		"discord.js": "^13.6.0"
     
-    "type": "git",
-    
-    "url": "git+https://github.com/ArjhanToteck/minigame-bot.git"
-    
-  },
-  
-  "engines": {
-    
-    "node": "12.14.1",
-    
-    "npm": "6.13.4"
-    
-  },
-
-  "scripts": {
-
-    "start": "node bot.js"
-
-  },
-
-  "dependencies": {
-
-    "discord.js": "11.1.0",
-
-    "request": "2.81.0"
-
-  }
+	}
 
 }
