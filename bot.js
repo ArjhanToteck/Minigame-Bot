@@ -1,19 +1,25 @@
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageEmbed } = require('discord.js');
+const http = require("http");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-client.on('ready', () => {
 
-	console.log('The bot is ready.');
+// opens http server
+let server = http.createServer(function(req, res) {
+	const headers = {
+		"Access-Control-Allow-Origin": "arjhantoteck.vercel.app",
+		"Content-Type": "text/plain"
+	};
 
-	client.user.setStatus('available')
-	client.user.setPresence({
-		game: {
-			name: "minigames | !help",
-			type: "STREAMING",
-			url: "https://www.twitch.tv/"
-		}
-	});
+	res.writeHead(200, headers);
+	res.end("Placeholder, lmao");
+});
+
+server.listen(8443);
+console.log("Server running on port 8443");
+
+client.on("ready", () =>{
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 
 var bsGames = {}; // games for battleship
@@ -21,8 +27,8 @@ var bjGames = {}; // games for blackjack
 var rpsGames = {}; // games for rock, paper, scissors
 var warGames = {}; // games for war
 
-client.on('message', message => {
-	var sender = '<@!' + message.author.id + '>';
+client.on("messageCreate", message => {
+	var sender = "<@!" + message.author.id + ">";
 
 	// !help
 	//___________________________________________________________
@@ -1105,18 +1111,18 @@ const varToString = varObj => Object.keys(varObj)[0];
 
 // function to generate embeds
 function generateEmbed(title, desc, imageSrc = undefined) {
-	const newEmbed = new Discord.RichEmbed()
+	const newEmbed = new MessageEmbed()
 		.setColor('#212121')
 		.setTitle(title)
 		.setDescription(desc)
-		.setFooter('Created by ArjhanToteck', 'https://arjhantoteck.neocities.org/favicon.png');
+		.setFooter({text: "Created by ArjhanToteck", iconURL: "https://arjhantoteck.neocities.org/favicon.png"});
 
 	if (!!imageSrc) {
 		newEmbed.setImage(imageSrc);
 	}
 
 	var output = {
-		embed: newEmbed
+		embeds: [newEmbed]
 	}
 
 	return output;
