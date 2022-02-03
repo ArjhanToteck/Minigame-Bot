@@ -2,6 +2,10 @@ const { Client, Intents, MessageEmbed } = require('discord.js');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
+client.on("ready", () =>{
+    console.log(`Logged in as ${client.user.tag}!`);
+});
+
 var bsGames = {}; // games for battleship
 var bjGames = {}; // games for blackjack
 var rpsGames = {}; // games for rock, paper, scissors
@@ -12,7 +16,7 @@ client.on("messageCreate", message => {
 
 	// !help
 	//___________________________________________________________
-	if (message.content == "!help") {
+	if (message.content.toLowerCase() == "!help") {
 		message.channel.send(generateEmbed("Help", "View a list of the commands and more [here](https://arjhantoteck.vercel.app/minigame%20bot.html)."));
 	}
 
@@ -25,7 +29,7 @@ client.on("messageCreate", message => {
 	// battleship
 	//___________________________________________________________
 
-	if (message.content === '!bs' && !bsGames.hasOwnProperty(message.author.id)) {
+	if (message.content.toLowerCase() === '!bs' && !bsGames.hasOwnProperty(message.author.id)) {
 		bsGames[message.author.id] = {
 			started: true,
 			inGame: false
@@ -38,7 +42,7 @@ client.on("messageCreate", message => {
 
 		message.delete(0);
 	} else {
-		if (message.content === '!bs' && bsGames.hasOwnProperty(message.author.id)) {
+		if (message.content.toLowerCase() === '!bs' && bsGames.hasOwnProperty(message.author.id)) {
 			message.channel.send("You're already in a game of battleship! Use `!bs stop` to stop playing.");
 			message.delete(0);
 		}
@@ -47,14 +51,14 @@ client.on("messageCreate", message => {
 	// if game opened
 	if (bsGames.hasOwnProperty(message.author.id)) {
 		// !bs stop
-		if (message.content === "!bs stop") {
+		if (message.content.toLowerCase() === "!bs stop") {
 			message.delete(0);
 
 			delete bsGames[message.author.id];
 			message.channel.send("Your game has now stopped. Thank you for playing, " + sender + "!");
 		} else {
 			// new board
-			if (message.content === "new board" && !bsGames[message.author.id].inGame) {
+			if (message.content.toLowerCase() === "new board" && !bsGames[message.author.id].inGame) {
 				message.delete(0);
 				var color = ":blue_square:";
 				bsGames[message.author.id].color = color;
@@ -324,7 +328,7 @@ client.on("messageCreate", message => {
 			}
 
 			// start
-			if (message.content === "start" && !bsGames[message.author.id].inGame) {
+			if (message.content.toLowerCase() === "start" && !bsGames[message.author.id].inGame) {
 				message.delete(0);
 
 				bsGames[message.author.id].inGame = true;
@@ -337,11 +341,11 @@ client.on("messageCreate", message => {
 
 				// player turn
 				if (bsGames[message.author.id].turn == "player") {
-					if (message.content == "ok") {
+					if (message.content.toLowerCase() == "ok") {
 						message.delete(0);
 						bsGames[message.author.id].editable.edit(generateEmbed("Battleship", "\n \n Preview of my board: (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Use `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map."));
 					} else {
-						if ((message.content.length == 2 || message.content.length == 3) && message.content != "ok") {
+						if ((message.content.length == 2 || message.content.length == 3) && message.content.toLowerCase() != "ok") {
 							message.delete(0);
 
 							var coordinates = ["", ""];
@@ -442,7 +446,7 @@ client.on("messageCreate", message => {
 									bsGames[message.author.id].turn = "bot";
 									output += "\n \n Preview of my board (remember, :x: means miss and :white_check_mark: means hit): \n \n" + stringifyArray(bsGames[message.author.id].botPreview) + "\n \n Type `ok` to continue.";
 								} else {
-									if (!message.content == "ok") {
+									if (!message.content.toLowerCase() == "ok") {
 										output += "\n \n Type `ok` to contrinue and then try again by using `(number)(letter)` to attack your enemy. For example, `1a` will attack the position 1a on the enemy map.";
 									} else {
 										bsGames[message.author.id].turn = "bot";
@@ -457,7 +461,7 @@ client.on("messageCreate", message => {
 				}
 
 				// bot turn ok
-				if (message.content == "ok" && bsGames[message.author.id].turn == "bot") {
+				if (message.content.toLowerCase() == "ok" && bsGames[message.author.id].turn == "bot") {
 					message.delete(0);
 
 					var letters = "abcdefghij";
@@ -570,7 +574,7 @@ client.on("messageCreate", message => {
 
 	// starts game
 
-	if (message.content === '!bj' && !bjGames.hasOwnProperty(message.author.id)) {
+	if (message.content.toLowerCase() === '!bj' && !bjGames.hasOwnProperty(message.author.id)) {
 		bjGames[message.author.id] = {
 			started: true
 		};
@@ -601,7 +605,7 @@ client.on("messageCreate", message => {
 			})
 		message.delete(0);
 	} else {
-		if (message.content === '!bj' && bjGames.hasOwnProperty(message.author.id)) {
+		if (message.content.toLowerCase() === '!bj' && bjGames.hasOwnProperty(message.author.id)) {
 			message.channel.send("You're already in a game of blackjack! Use `!bj stop` to stop playing.");
 		}
 	}
@@ -611,7 +615,7 @@ client.on("messageCreate", message => {
 	if (bjGames.hasOwnProperty(message.author.id)) {
 
 		// !bj stop
-		if (message.content === "!bj stop") {
+		if (message.content.toLowerCase() === "!bj stop") {
 			message.delete(0);
 
 			delete bjGames[message.author.id];
@@ -619,7 +623,7 @@ client.on("messageCreate", message => {
 		}
 
 		// hit me
-		if (message.content === "hit me") {
+		if (message.content.toLowerCase() === "hit me") {
 			message.delete(0);
 
 			var newCard = bjGames[message.author.id].deck.splice(Math.floor(Math.random() * Math.floor(13)), 1);
@@ -702,7 +706,7 @@ client.on("messageCreate", message => {
 		}
 
 		// stand
-		if (message.content === "stand") {
+		if (message.content.toLowerCase() === "stand") {
 			message.delete(0);
 
 			// assigns names and values to cards
@@ -868,7 +872,7 @@ client.on("messageCreate", message => {
 	//___________________________________________________________
 
 	// starts game
-	if (message.content === '!rps' && !rpsGames.hasOwnProperty(message.author.id)) {
+	if (message.content.toLowerCase() === '!rps' && !rpsGames.hasOwnProperty(message.author.id)) {
 		rpsGames[message.author.id] = {
 			started: true
 		};
@@ -878,7 +882,7 @@ client.on("messageCreate", message => {
 			})
 		message.delete(0);
 	} else {
-		if (message.content === '!rps' && rpsGames.hasOwnProperty(message.author.id)) {
+		if (message.content.toLowerCase() === '!rps' && rpsGames.hasOwnProperty(message.author.id)) {
 			message.channel.send("You're already in a game of rock, paper, scissors! Use `!rps stop` to stop playing.");
 		}
 	}
@@ -888,7 +892,7 @@ client.on("messageCreate", message => {
 	if (rpsGames.hasOwnProperty(message.author.id)) {
 
 		// !rps stop
-		if (message.content === "!rps stop") {
+		if (message.content.toLowerCase() === "!rps stop") {
 			message.delete(0);
 
 			delete rpsGames[message.author.id];
@@ -896,8 +900,8 @@ client.on("messageCreate", message => {
 		}
 
 		// rock, paper, or scissors
-		if (message.content === "rock" || message.content === "paper" || message.content === "scissors" || message.content === "r" || message.content === "p" || message.content === "s") {
-			var playerAttack = message.content[0];
+		if (message.content.toLowerCase() === "rock" || message.content.toLowerCase() === "paper" || message.content.toLowerCase() === "scissors" || message.content.toLowerCase() === "r" || message.content.toLowerCase() === "p" || message.content.toLowerCase() === "s") {
+			var playerAttack = message.content.toLowerCase()[0];
 			var botAttack = ["r", "p", "s"];
 			botAttack = botAttack[Math.floor(Math.random() * Math.floor(3))];
 
@@ -929,11 +933,11 @@ client.on("messageCreate", message => {
 	//___________________________________________________________
 
 	// starts game
-	if ((message.content === '!war' || message.content === '!war kill' || message.content === '!war capture') && !warGames.hasOwnProperty(message.author.id)) {
+	if ((message.content.toLowerCase() === '!war' || message.content.toLowerCase() === '!war kill' || message.content.toLowerCase() === '!war capture') && !warGames.hasOwnProperty(message.author.id)) {
 		warGames[message.author.id] = {};
 
 		// capture or kill
-		if (message.content === '!war capture') {
+		if (message.content.toLowerCase() === '!war capture') {
 			warGames[message.author.id].type = "Capture";
 		} else {
 			warGames[message.author.id].type = "Kill";
@@ -959,7 +963,7 @@ client.on("messageCreate", message => {
 		warGames[message.author.id].botCards = botCards;
 
 	} else {
-		if ((message.content === '!war' || message.content === '!war kill' || message.content === '!war capture') && warGames.hasOwnProperty(message.author.id)) {
+		if ((message.content.toLowerCase() === '!war' || message.content.toLowerCase() === '!war kill' || message.content.toLowerCase() === '!war capture') && warGames.hasOwnProperty(message.author.id)) {
 			message.channel.send("You're already in a game of war! Use `!war stop` to stop playing.");
 		}
 	}
@@ -969,7 +973,7 @@ client.on("messageCreate", message => {
 	if (warGames.hasOwnProperty(message.author.id)) {
 
 		// !war stop
-		if (message.content === "!war stop") {
+		if (message.content.toLowerCase() === "!war stop") {
 			message.delete(0);
 
 			delete warGames[message.author.id];
@@ -977,7 +981,7 @@ client.on("messageCreate", message => {
 		}
 
 		// go
-		if (message.content === "go") {
+		if (message.content.toLowerCase() === "go") {
 
 			message.delete(0);
 
